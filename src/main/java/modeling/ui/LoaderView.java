@@ -11,25 +11,26 @@ public class LoaderView {
     JLabel jlab;
     JButton jbtnStarted;
 
-   public void build() {
+    public void build() {
 
         JFrame jfrm = new JFrame("Ocenka Konkurentosposobnosti");
         jfrm.setLayout(new BorderLayout());
         jfrm.setSize(700, 400);
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        jlab = new JLabel("Приложения для оценки конкурентоспособности потенциала предприятия",SwingConstants.CENTER);
+        jlab = new JLabel("Приложения для оценки конкурентоспособности потенциала предприятия", SwingConstants.CENTER);
         jlab.setVerticalTextPosition(SwingConstants.TOP);
         jlab.setHorizontalTextPosition(SwingConstants.CENTER);
 
         jbtnStarted = new JButton("Начать работу");
 
         JPanel jpnl = new JPanel();
-        jpnl.setPreferredSize(new Dimension(600,300));
+        jpnl.setPreferredSize(new Dimension(600, 300));
         jpnl.setOpaque(true);
 
         jpnl.add(new JLabel(new ImageIcon(ClassLoader.class.getResource("/started.jpg"))));
         jfrm.add(jlab, BorderLayout.NORTH);
+        jfrm.add(jpnl, BorderLayout.CENTER);
         jfrm.add(jbtnStarted, BorderLayout.SOUTH);
 
         jfrm.setVisible(true);
