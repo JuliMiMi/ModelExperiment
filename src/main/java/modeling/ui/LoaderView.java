@@ -11,7 +11,7 @@ public class LoaderView {
     JLabel jlab;
     JButton jbtnStarted;
 
-    void build() {
+   public void build() {
 
         JFrame jfrm = new JFrame("Ocenka Konkurentosposobnosti");
         jfrm.setLayout(new BorderLayout());
@@ -28,7 +28,7 @@ public class LoaderView {
         jpnl.setPreferredSize(new Dimension(600,300));
         jpnl.setOpaque(true);
 
-        jpnl.add(new JLabel(new ImageIcon("started.jpg")));
+        jpnl.add(new JLabel(new ImageIcon(ClassLoader.class.getResource("/started.jpg"))));
         jfrm.add(jlab, BorderLayout.NORTH);
         jfrm.add(jbtnStarted, BorderLayout.SOUTH);
 
@@ -36,6 +36,9 @@ public class LoaderView {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoaderView.build());
+        SwingUtilities.invokeLater(() -> {
+            LoaderView loaderView = new LoaderView();
+            loaderView.build();
+        });
     }
 }
