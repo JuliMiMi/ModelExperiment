@@ -2,38 +2,55 @@ package modeling.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by Julia on 07.05.2016.
  */
 public class LoaderView {
 
-    JLabel jlab;
-    JButton jbtnStarted;
+    JLabel nameApp;
+    JButton PressStarted;
 
     public void build() {
 
-        JFrame jfrm = new JFrame("Ocenka Konkurentosposobnosti");
-        jfrm.setLayout(new BorderLayout());
-        jfrm.setSize(700, 400);
-        jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("Analysis of the company's competitiveness");
+        frame.setLayout(new BorderLayout());
+        frame.setSize(700, 400);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                int result = JOptionPane.showConfirmDialog(frame, "Are you sure?", "Closing", JOptionPane.OK_CANCEL_OPTION);
+                if(result == JOptionPane.OK_OPTION)
+                {
+                    frame.dispose();
+                }
+            }
+        });
 
-        jlab = new JLabel("Приложения для оценки конкурентоспособности потенциала предприятия", SwingConstants.CENTER);
-        jlab.setVerticalTextPosition(SwingConstants.TOP);
-        jlab.setHorizontalTextPosition(SwingConstants.CENTER);
+        nameApp = new JLabel("Application for assessment of the competitiveness potential of the enterprise", SwingConstants.CENTER);
+        nameApp.setVerticalTextPosition(SwingConstants.TOP);
+        nameApp.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        jbtnStarted = new JButton("Начать работу");
+        PressStarted = new JButton("Start work");
 
-        JPanel jpnl = new JPanel();
-        jpnl.setPreferredSize(new Dimension(600, 300));
-        jpnl.setOpaque(true);
 
-        jpnl.add(new JLabel(new ImageIcon(ClassLoader.class.getResource("/started.jpg"))));
-        jfrm.add(jlab, BorderLayout.NORTH);
-        jfrm.add(jpnl, BorderLayout.CENTER);
-        jfrm.add(jbtnStarted, BorderLayout.SOUTH);
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(400, 200));
+        panel.setOpaque(true);
 
-        jfrm.setVisible(true);
+        panel.add(new JLabel(new ImageIcon(ClassLoader.class.getResource("/started.jpg"))));
+        frame.add(nameApp, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.add(PressStarted, BorderLayout.SOUTH);
+
+
+
+
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
