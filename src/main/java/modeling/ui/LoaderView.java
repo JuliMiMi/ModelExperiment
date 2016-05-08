@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 public class LoaderView {
 
     JLabel nameApp;
-    JButton PressStarted;
+    JButton pressStarted;
 
     public void build() {
 
@@ -24,9 +24,8 @@ public class LoaderView {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 int result = JOptionPane.showConfirmDialog(frame, "Are you sure?", "Closing", JOptionPane.OK_CANCEL_OPTION);
-                if(result == JOptionPane.OK_OPTION)
-                {
-                    frame.dispose();
+                if (result == JOptionPane.OK_OPTION) {
+                    System.exit(0);
                 }
             }
         });
@@ -35,8 +34,7 @@ public class LoaderView {
         nameApp.setVerticalTextPosition(SwingConstants.TOP);
         nameApp.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        PressStarted = new JButton("Start work");
-
+        pressStarted = new JButton("Start work");
 
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(400, 200));
@@ -45,10 +43,7 @@ public class LoaderView {
         panel.add(new JLabel(new ImageIcon(ClassLoader.class.getResource("/started.jpg"))));
         frame.add(nameApp, BorderLayout.NORTH);
         frame.add(panel, BorderLayout.CENTER);
-        frame.add(PressStarted, BorderLayout.SOUTH);
-
-
-
+        frame.add(pressStarted, BorderLayout.SOUTH);
 
         frame.setVisible(true);
     }
