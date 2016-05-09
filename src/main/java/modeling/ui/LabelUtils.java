@@ -9,6 +9,8 @@ public class LabelUtils {
 
     public static JLabel createWrappedLabel(String text) {
         JLabel label = new JLabel();
+        label.setHorizontalAlignment(SwingConstants.TRAILING);
+        label.setVerticalAlignment(SwingConstants.CENTER);
 
         StringBuilder wrappedText = new StringBuilder(text.length());
         wrappedText.append("<html>");
