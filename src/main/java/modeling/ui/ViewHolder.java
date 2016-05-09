@@ -23,7 +23,8 @@ public class ViewHolder extends JFrame {
     }
 
     public void setView(JPanel view) {
-        setContentPane(view);
+        JScrollPane scrollContainer = new JScrollPane(view);
+        setContentPane(scrollContainer);
         pack();
     }
 
