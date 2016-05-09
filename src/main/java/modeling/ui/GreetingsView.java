@@ -17,13 +17,13 @@ public class GreetingsView extends JPanel {
 
     private void build() {
         this.setLayout(new BorderLayout());
-        setSize(VIEW_SIZE);
-        setOpaque(true);
+    setSize(VIEW_SIZE);
+    setOpaque(true);
 
-        add(buildAppName(), BorderLayout.NORTH);
-        add(buildBackground(), BorderLayout.CENTER);
-        add(buildStartButton(), BorderLayout.SOUTH);
-    }
+    add(buildAppName(), BorderLayout.NORTH);
+    add(buildBackground(), BorderLayout.CENTER);
+    add(buildStartButton(), BorderLayout.SOUTH);
+}
 
     private JLabel buildAppName() {
         JLabel appName = new JLabel("Application for assessment of the competitiveness potential of the enterprise", SwingConstants.CENTER);

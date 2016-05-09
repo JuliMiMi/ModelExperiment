@@ -18,6 +18,8 @@ public class ViewManager {
         return lazyInit(GreetingsView.class);
     }
 
+    public static IndicatorMethodView getIndicatorMethodView() { return lazyInit(IndicatorMethodView.class); }
+
     @SuppressWarnings("unchecked")
     private static <O> O lazyInit(Class<O> objectClass) {
         Object o = ui.get(objectClass);
