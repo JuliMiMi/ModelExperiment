@@ -15,10 +15,10 @@ public class Loader {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             ViewHolder viewHolder = ViewManager.getViewHolder();
-          //  GreetingsView greetingsView = ViewManager.getGreetingsView();
+            GreetingsView greetingsView = ViewManager.getGreetingsView();
             IndicatorMethodView viewMethod1 = ViewManager.getIndicatorMethodView();
 
-        //    viewHolder.setView(greetingsView);
+            viewHolder.setView(greetingsView);
             viewHolder.setView(viewMethod1);
         });
     }

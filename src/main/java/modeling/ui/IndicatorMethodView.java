@@ -65,20 +65,64 @@ public class IndicatorMethodView extends JPanel {
 
         private JTextField name;
         private JTextField netWorth;
+        private JTextField contributionsBudgetSocial;
+        private JTextField advancedResources;
+        private JTextField resourcesUsed;
+        private JTextField costJobs;
+        private JTextField profitableMarketCapacity;
+        private JTextField grossIncomeWorker1;
+        private JTextField grossIncomeGeneral;
+        private JTextField periodTheResultingGross;
+        private JTextField periodGrossHalf;
 
 
         CompanyView() {
-            super(new GridLayout(0, 2));
+
+            super(new GridLayout(0, 2, 10, 5));
 
             name = new JTextField();
-            add(new JLabel("Company name:"));
+            add(LabelUtils.createWrappedLabel("Company name:  "));
             add(name);
 
             netWorth = new JTextField();
-            add(new JLabel("Net worth:"));
+            add(LabelUtils.createWrappedLabel("Net worth:  "));
             add(netWorth);
 
-            //TODO add other fields
+            contributionsBudgetSocial = new JTextField();
+            add(LabelUtils.createWrappedLabel("Contributions to the\n budget and social funds:  "));
+            add(contributionsBudgetSocial);
+
+            advancedResources = new JTextField();
+            add(LabelUtils.createWrappedLabel("Resources advances now:  "));
+            add(advancedResources);
+
+            resourcesUsed = new JTextField();
+            add(LabelUtils.createWrappedLabel("Resources used by\n the enterprise:  "));
+            add(resourcesUsed);
+
+            costJobs = new JTextField();
+            add(LabelUtils.createWrappedLabel("The average annual cost of\n jobs:  "));
+            add(costJobs);
+
+            profitableMarketCapacity = new JTextField();
+            add(LabelUtils.createWrappedLabel("Profitable market capacity:  "));
+            add(profitableMarketCapacity);
+
+            grossIncomeWorker1 = new JTextField();
+            add(LabelUtils.createWrappedLabel("Gross profit per 1 worker:  "));
+            add(grossIncomeWorker1);
+
+            grossIncomeGeneral = new JTextField();
+            add(LabelUtils.createWrappedLabel("The total gross profit:  "));
+            add(grossIncomeGeneral);
+
+            periodTheResultingGross = new JTextField();
+            add(LabelUtils.createWrappedLabel("Time passed in a period\n for measuring the resulting\n gross income:  "));
+            add(periodTheResultingGross);
+
+            periodGrossHalf = new JTextField();
+            add(LabelUtils.createWrappedLabel("The time required for half\n the increase in gross income:   "));
+            add(periodGrossHalf);
 
             setBorder(new WindowsBorders.DashedBorder(Color.BLACK));
         }
