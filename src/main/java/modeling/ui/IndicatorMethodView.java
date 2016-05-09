@@ -1,11 +1,8 @@
 package modeling.ui;
 
-import sun.awt.DisplayChangedListener;
+import com.sun.java.swing.plaf.windows.WindowsBorders;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.ChangedCharSetException;
 import java.awt.*;
 
 /**
@@ -13,7 +10,6 @@ import java.awt.*;
  */
 public class IndicatorMethodView extends JPanel {
 
-    private Dimension VIEW_SIZE = new Dimension(400, 200);
 
     IndicatorMethodView() {
         super();
@@ -21,46 +17,71 @@ public class IndicatorMethodView extends JPanel {
     }
 
     private void build() {
-        this.setLayout(new FlowLayout());
-        setSize(VIEW_SIZE);
+        this.setLayout(new BorderLayout(10, 10));
         setOpaque(true);
-        add(buildAddCompanyCheck());
-        add(buildLabelSelectNum());
-        add(buildCounterCompetitors());
-        add(buildGroup());
+
+        add(buildHeader(), BorderLayout.NORTH);
+        add(buildCompaniesHolder(), BorderLayout.SOUTH);
     }
 
-    private void add(GridBagLayout initialData) {
-        GridBagConstraints gbc = new GridBagConstraints();
-        JLabel jlb = new JLabel("Test");
-        initialData.addLayoutComponent(jlb,gbc );
+    private JPanel buildHeader() {
+        JPanel header = new JPanel(new FlowLayout());
 
+        JCheckBox compareCompaniesCheckbox = new JCheckBox("Compare several companies");
+        //todo add listener for this checkbox
+        header.add(compareCompaniesCheckbox);
+
+        header.add(new JLabel("Number of competitors"));
+
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(1, 1, 100, 1);
+        JSpinner companiesCounter = new JSpinner(spinnerModel);
+        companiesCounter.setSize(new Dimension(40, 20));
+        //todo add listener for this counter
+        header.add(companiesCounter);
+
+        return header;
     }
 
-    private JCheckBox buildAddCompanyCheck() {
-        JCheckBox addCompanyCheck = new JCheckBox("Compare several companies");
-        return addCompanyCheck;
+    private JPanel buildCompaniesHolder() {
+        JPanel companiesHolder = new JPanel(new GridLayout(0, 2, 10, 10));
+
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());
+
+
+        setBorder(new WindowsBorders.DashedBorder(Color.BLACK));
+
+        return companiesHolder;
     }
 
-    private JLabel buildLabelSelectNum() {
-        JLabel selectNum = new JLabel("Number of competitors");
-        return selectNum;
-    }
+    private static class CompanyView extends JPanel {
 
-    private JSpinner buildCounterCompetitors() {
-        SpinnerNumberModel spm = new SpinnerNumberModel(1, 1, 100, 1);
-        JSpinner counterCompetitors = new JSpinner(spm);
-        counterCompetitors.setPreferredSize(new Dimension(40, 20));
-        return counterCompetitors;
-    }
+        private JTextField name;
+        private JTextField netWorth;
 
-        private GridBagLayout buildGroup() {
-            GridBagLayout initialData = new GridBagLayout();
-            GridBagConstraints gbc = new GridBagConstraints();
-            JLabel jlb = new JLabel("Test");
-        initialData.addLayoutComponent(jlb,gbc );
-        return initialData;
 
+        CompanyView() {
+            super(new GridLayout(0, 2));
+
+            name = new JTextField();
+            add(new JLabel("Company name:"));
+            add(name);
+
+            netWorth = new JTextField();
+            add(new JLabel("Net worth:"));
+            add(netWorth);
+
+            //TODO add other fields
+
+            setBorder(new WindowsBorders.DashedBorder(Color.BLACK));
+        }
 
     }
 }
