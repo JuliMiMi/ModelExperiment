@@ -3,6 +3,9 @@ package modeling.ui;
 import com.sun.java.swing.plaf.windows.WindowsBorders;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -17,29 +20,40 @@ public class IndicatorMethodView extends JPanel {
     }
 
     private void build() {
-        this.setLayout(new BorderLayout(10, 10));
+        this.setLayout(new BorderLayout(5, 5));
         setOpaque(true);
 
         add(buildHeader(), BorderLayout.NORTH);
         add(buildCompaniesHolder(), BorderLayout.SOUTH);
+
     }
 
     private JPanel buildHeader() {
-        JPanel header = new JPanel(new FlowLayout());
+        JPanel header = new JPanel(new BorderLayout());
 
-        JCheckBox compareCompaniesCheckbox = new JCheckBox("Compare several companies");
-        //todo add listener for this checkbox
-        header.add(compareCompaniesCheckbox);
+        JLabel initialData = new JLabel("Please enter the initial data");
+        initialData.setBackground(Color.PINK);
+        initialData.setFont(new Font("Cambria", Font.PLAIN, 22));
+        //todo add listener for this button
+        header.add(initialData, BorderLayout.NORTH);
+        initialData.setHorizontalAlignment(SwingConstants.CENTER);
 
-        header.add(new JLabel("Number of competitors"));
 
-        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(1, 1, 100, 1);
-        JSpinner companiesCounter = new JSpinner(spinnerModel);
-        companiesCounter.setSize(new Dimension(40, 20));
-        //todo add listener for this counter
-        header.add(companiesCounter);
+        JButton addCompany = new JButton("Add Company");
+        //todo add listener for this button
+        add(addCompany);
+
+        JButton result = new JButton("Get results");
+        //todo add listener for this button
+        add(result, BorderLayout.EAST);
+
+
+        header.setBackground(Color.PINK);
+
 
         return header;
+
+
     }
 
     private JPanel buildCompaniesHolder() {
@@ -56,7 +70,10 @@ public class IndicatorMethodView extends JPanel {
         companiesHolder.add(new CompanyView());
 
 
-        setBorder(new WindowsBorders.DashedBorder(Color.BLACK));
+        setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(20, 15, 20, 25)));
+
 
         return companiesHolder;
     }
@@ -78,7 +95,8 @@ public class IndicatorMethodView extends JPanel {
 
         CompanyView() {
 
-            super(new GridLayout(0, 2, 10, 5));
+            super(new GridLayout(0, 4, 10, 7));
+
 
             name = new JTextField();
             add(LabelUtils.createWrappedLabel("Company name:  "));
@@ -97,7 +115,7 @@ public class IndicatorMethodView extends JPanel {
             add(advancedResources);
 
             resourcesUsed = new JTextField();
-            add(LabelUtils.createWrappedLabel("Resources used by\n the enterprise:  "));
+            add(LabelUtils.createWrappedLabel("Resources used by the\n enterprise:  "));
             add(resourcesUsed);
 
             costJobs = new JTextField();
@@ -124,7 +142,20 @@ public class IndicatorMethodView extends JPanel {
             add(LabelUtils.createWrappedLabel("The time required for half\n the increase in gross income:   "));
             add(periodGrossHalf);
 
-            setBorder(new WindowsBorders.DashedBorder(Color.BLACK));
+            JButton clearForm = new JButton("Clear form");
+            //todo add listener for this button
+            add(clearForm);
+
+            JButton deleteCompany = new JButton("Delete Company");
+            //todo add listener for this button
+            add(deleteCompany);
+            setBackground(Color.PINK);
+
+
+            setBorder(BorderFactory.createCompoundBorder(
+                    new LineBorder(Color.LIGHT_GRAY, 4, true),
+                    BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
         }
 
     }
