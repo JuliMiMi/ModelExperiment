@@ -1,8 +1,7 @@
 package modeling.ui;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.OK_OPTION;
@@ -20,6 +19,7 @@ public class ViewHolder extends JFrame {
         setResizable(false);
         setVisible(true);
         initCloseListener();
+        menu();
     }
 
     public void setView(JPanel view) {
@@ -37,6 +37,37 @@ public class ViewHolder extends JFrame {
                 }
             }
         });
+    }
+
+
+    public void menu() {
+        JMenuBar menuBar;
+        JMenu method, operation;
+        JMenuItem indicator, expert, financialPosition;
+        JMenuItem test1, test2, test3;
+
+        menuBar = new JMenuBar();
+
+        method = new JMenu("Method");
+        indicator = new JMenuItem("Indicator");
+        expert = new JMenuItem("Expert");
+        financialPosition = new JMenuItem("Financial position");
+        method.add(indicator);
+        method.add(expert);
+        method.add(financialPosition);
+
+        operation = new JMenu("Operation");
+        test1 = new JMenuItem("Get Results");
+        test2 = new JMenuItem("Test2");
+        test3 = new JMenuItem("Test3");
+        operation.add(test1);
+        operation.add(test2);
+        operation.add(test3);
+
+        menuBar.add(method);
+        menuBar.add(operation);
+
+        setJMenuBar(menuBar);
     }
 
 }
