@@ -9,6 +9,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -44,34 +46,43 @@ public class IndicatorMethodView extends JPanel {
         initialData.setHorizontalAlignment(SwingConstants.CENTER);
 
 
-        JButton addCompany = new JButton("Add Company");
-        //todo add listener for this button
-        add(addCompany);
-
        /* JButton result = new JButton("Get results");
         //todo add listener for this button
         add(result, BorderLayout.EAST);*/
 
         header.setBackground(Color.PINK);
-
-
         return header;
-
-
     }
+
+    public void update(Graphics g) {
+        paint(g);
+    }
+
 
     private JPanel buildCompaniesHolder() {
         JPanel companiesHolder = new JPanel(new GridLayout(0, 2, 10, 10));
 
+
+        JButton addCompany = new JButton("Add Company");
+        addCompany.addActionListener(e -> {
+
+            if (addCompany.isEnabled()) {
+                companiesHolder.add(new CompanyView());
+                updateUI();
+            }
+        });
+
+        add(addCompany);
         companiesHolder.add(new CompanyView());
-        companiesHolder.add(new CompanyView());
+       /* companiesHolder.add(new CompanyView());
         companiesHolder.add(new CompanyView());
         companiesHolder.add(new CompanyView());
 
         companiesHolder.add(new CompanyView());
         companiesHolder.add(new CompanyView());
         companiesHolder.add(new CompanyView());
-        companiesHolder.add(new CompanyView());
+        companiesHolder.add(new CompanyView());*/
+
 
         companiesHolder.setBackground(Color.PINK);
         setBackground(Color.PINK);
@@ -82,7 +93,9 @@ public class IndicatorMethodView extends JPanel {
 
 
         return companiesHolder;
+
     }
+
 
     private static class CompanyView extends JPanel {
 
@@ -115,12 +128,43 @@ public class IndicatorMethodView extends JPanel {
 
 
             JButton clearForm = new JButton("Clear form");
-            //todo add listener for this button
+            clearForm.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    if (clearForm.isEnabled()) {
+                        name.setText("");
+                        netWorth.setText("");
+                        contributionsBudgetSocial.setText("");
+                        advancedResources.setText("");
+                        resourcesUsed.setText("");
+                        costJobs.setText("");
+                        profitableMarketCapacity.setText("");
+                        grossIncomeWorker1.setText("");
+                        grossIncomeGeneral.setText("");
+                        periodTheResultingGross.setText("");
+                        periodGrossHalf.setText("");
+                        updateUI();
+                    }
+
+                }
+            });
             buttonP.add(clearForm);
 
             JButton deleteCompany = new JButton("Delete Company");
             //todo add listener for this button
             buttonP.add(deleteCompany);
+            deleteCompany.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (clearForm.isEnabled()) {
+
+                        updateUI();
+                    }
+                }
+            });
+
+
             setBackground(Color.PINK);
 
             name = new JTextField();
@@ -172,7 +216,7 @@ public class IndicatorMethodView extends JPanel {
             // output.add(new JLabel("Results"));
 
 
-           /* double netWorthD = Double.parseDouble(netWorth.getText());
+/*            double netWorthD = Double.parseDouble(netWorth.getText());
             double contributionsBudgetSocialD = Double.parseDouble(contributionsBudgetSocial.getText());
             double advancedResourcesD = Double.parseDouble(advancedResources.getText());
             double resourcesUsedD = Double.parseDouble(resourcesUsed.getText());
@@ -227,6 +271,12 @@ public class IndicatorMethodView extends JPanel {
                     new LineBorder(Color.WHITE, 4, true),
                     BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         }
-
     }
 }
+
+
+
+
+
+
+
