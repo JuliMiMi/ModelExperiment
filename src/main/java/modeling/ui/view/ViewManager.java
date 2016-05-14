@@ -1,4 +1,7 @@
-package modeling.ui;
+package modeling.ui.view;
+
+import modeling.ui.ViewHolder;
+import modeling.ui.view.indicator.IndicatorMethodView;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,9 +1,9 @@
 package modeling;
 
-import modeling.ui.GreetingsView;
-import modeling.ui.IndicatorMethodView;
+import modeling.ui.view.GreetingsView;
+import modeling.ui.view.indicator.IndicatorMethodView;
 import modeling.ui.ViewHolder;
-import modeling.ui.ViewManager;
+import modeling.ui.view.ViewManager;
 
 import javax.swing.*;
 
