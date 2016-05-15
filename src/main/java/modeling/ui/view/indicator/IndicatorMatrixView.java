@@ -7,6 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -40,7 +41,15 @@ public class IndicatorMatrixView extends JPanel implements View {
                 {"7", "Threshold level", "1.33", "26.6", "1", "28.57", "0.01", "2", "0.15", "15", "0.09", "12.86"},
         };
 
-        JTable table = new JTable(standardData, header);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(standardData, header);
+
+        for (CompanyModel companyModel : companyModels) {
+            defaultTableModel.addRow(new Object[]{
+                    //TODO ADD DYNAMIC STUFF FOR COMPANIES
+            });
+        }
+
+        JTable table = new JTable(defaultTableModel);
         table.getColumnModel().setColumnMargin(20);
         table.setSize(1000, 500);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -48,6 +57,7 @@ public class IndicatorMatrixView extends JPanel implements View {
         table.setCellSelectionEnabled(true);
         table.setDropMode(DropMode.USE_SELECTION);
         table.updateUI();
+
 
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setReorderingAllowed(false);

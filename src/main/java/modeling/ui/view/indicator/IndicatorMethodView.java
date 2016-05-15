@@ -145,6 +145,7 @@ public class IndicatorMethodView extends JPanel implements View {
             boolean allValid = companies.stream().allMatch(companyView -> companyView.getModel().getValid());
 
             if (allValid) {
+                calcAll();
                 List<CompanyModel> models = this.companies.stream().map(CompanyView::getModel).collect(Collectors.toList());
                 indicatorMatrixView.buildCompetitivenessMatrix(models);
                 viewHolder.setView(indicatorMatrixView);
