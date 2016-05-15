@@ -87,9 +87,63 @@ public class IndicatorMatrixView extends JPanel implements View {
         return table;
     }
 
+
+
     private JTable buildSummaryMatrix(Collection<CompanyModel> companyModels) {
-        Object[] header = {"Levels of competitiveness" };
+        JPanel resMatrix = new JPanel(new BorderLayout());
+
+        DefaultTableModel resultTableModel = new DefaultTableModel();
+
+        JTable tableRes = new JTable(resultTableModel);
+        tableRes.getColumnModel().setColumnMargin(20);
+        tableRes.setSize(1000, 500);
+        tableRes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tableRes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tableRes.setCellSelectionEnabled(true);
+        tableRes.setDropMode(DropMode.USE_SELECTION);
+        tableRes.updateUI();
+
+        this.add(resMatrix);
+        resMatrix.add(tableRes, BorderLayout.SOUTH);
+
+
+         resultTableModel.addColumn(new Object[]
+                 {"Levels of competitiveness"});
+        for (CompanyModel companyModel : companyModels) {
+            resultTableModel.addColumn(new Object[]{
+                    companyModel.getName()
+            });
+        }
+
+        for (CompanyModel companyModel : companyModels) {
+            resultTableModel.addColumn(new Object[][]{
+
+                    {"Global leadership", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            100+100+100+100+100},
+                    {"World standard", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            76.2+80+88+90+88.57},
+                    {"National leadership", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            58.8+71.43+72+78+65.71},
+                    {"National standard", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            49.2+68.57+60+66+51.43},
+                    {"Sectoral leadership", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            43.6+57.86+38+51+38+57},
+                    {"Industry standards", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            33.4+45.71+14+38+21.43},
+                    {"Threshold level", companyModel.getIndRes()+companyModel.getIndWork()+
+                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
+                            26.6+28.57+2+15+12.86 }
+            });
+        }
+
         return null;
+
     }
 
     @Override
