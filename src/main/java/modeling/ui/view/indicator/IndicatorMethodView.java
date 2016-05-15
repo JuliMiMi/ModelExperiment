@@ -147,7 +147,7 @@ public class IndicatorMethodView extends JPanel implements View {
             if (allValid) {
                 calcAll();
                 List<CompanyModel> models = this.companies.stream().map(CompanyView::getModel).collect(Collectors.toList());
-                indicatorMatrixView.buildCompetitivenessMatrix(models);
+                indicatorMatrixView.setModel(models);
                 viewHolder.setView(indicatorMatrixView);
             } else {
                 JOptionPane.showMessageDialog(null, "Some models invalid, please check them");

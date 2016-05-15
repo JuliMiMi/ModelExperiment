@@ -24,6 +24,10 @@ public class IndicatorMatrixView extends JPanel implements View {
         updateUI();
     }
 
+    public void setModel(Collection<CompanyModel> companyModels) {
+        buildCompetitivenessMatrix(companyModels);
+        buildSummaryMatrix(companyModels);
+    }
 
     public JTable buildCompetitivenessMatrix(Collection<CompanyModel> companyModels) {
         JPanel competitivenessMatrix = new JPanel(new BorderLayout());
@@ -83,7 +87,7 @@ public class IndicatorMatrixView extends JPanel implements View {
         return table;
     }
 
-    private JTable buildSummaryMatrix() {
+    private JTable buildSummaryMatrix(Collection<CompanyModel> companyModels) {
         Object[] header = {"Levels of competitiveness" };
         return null;
     }
