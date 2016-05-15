@@ -2,7 +2,8 @@ package modeling.ui;
 
 import modeling.ui.view.View;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -19,13 +20,13 @@ public class ViewHolder extends JFrame {
         super();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setTitle("Analysis of the company's competitiveness");
-        setResizable(false);
         setVisible(true);
         initCloseListener();
     }
 
     public void setView(View view) {
         JScrollPane scrollContainer = new JScrollPane(view.getContent());
+        scrollContainer.getVerticalScrollBar().setUnitIncrement(20);
         setContentPane(scrollContainer);
         setJMenuBar(view.getMenu());
         pack();

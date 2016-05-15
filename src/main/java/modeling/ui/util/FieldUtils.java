@@ -1,9 +1,13 @@
 package modeling.ui.util;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
-import java.awt.*;
+import java.awt.Color;
+import java.util.function.Consumer;
 
 /**
  * Created by Oleksii Martyniuk on 14.05.2016.
@@ -26,7 +30,29 @@ public class FieldUtils {
         return valid;
     }
 
-    public static void clearFields(JTextComponent... fields){
+    public static void bindStringField(JTextField field, Consumer<String> setter, Consumer<Boolean> validSetter) {
+        onDocumentChange(field, e -> {
+            String text = field.getText();
+            if (text != null && text.length() > 0) {
+                setter.accept(text);
+                validSetter.accept(Boolean.TRUE);
+            } else {
+                validSetter.accept(Boolean.FALSE);
+            }
+        });
+    }
+
+    public static void bindDoubleField(JTextField field, Consumer<Double> setter, Consumer<Boolean> validSetter) {
+        onDocumentChange(field, e -> {
+            boolean valid = validateDoubleFields(field);
+            validSetter.accept(valid);
+            if (valid) {
+                setter.accept(parseDoubleField(field));
+            }
+        });
+    }
+
+    public static void clearFields(JTextComponent... fields) {
         for (JTextComponent field : fields) {
             field.setText(null);
             field.setBorder(BorderFactory.createEmptyBorder());
@@ -35,5 +61,24 @@ public class FieldUtils {
 
     public static double parseDoubleField(JTextField textField) {
         return Double.parseDouble(textField.getText());
+    }
+
+    private static void onDocumentChange(JTextComponent component, Consumer<DocumentEvent> listener) {
+        component.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                listener.accept(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                listener.accept(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                listener.accept(e);
+            }
+        });
     }
 }

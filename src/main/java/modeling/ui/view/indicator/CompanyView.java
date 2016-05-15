@@ -3,16 +3,25 @@ package modeling.ui.view.indicator;
 import modeling.ui.util.FieldUtils;
 import modeling.ui.util.LabelUtils;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 /**
  * Created by Oleksii Martyniuk on 14.05.2016.
  */
 public class CompanyView extends JPanel {
+
+    private CompanyModel model = new CompanyModel();
 
     private JPanel parent;
 
@@ -61,57 +70,67 @@ public class CompanyView extends JPanel {
 
     private void buildInput() {
         JPanel input = new JPanel((new GridLayout(0, 4, 5, 5)));
+
         name = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Company name:  "));
         input.add(name);
+        FieldUtils.bindStringField(name, model::setName, model::setValid);
 
         netWorth = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Net worth:  "));
         input.add(netWorth);
+        FieldUtils.bindDoubleField(netWorth, model::setNetWorth, model::setValid);
 
         contributionsBudgetSocial = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Contributions to the\n budget and social funds:  "));
         input.add(contributionsBudgetSocial);
+        FieldUtils.bindDoubleField(contributionsBudgetSocial, model::setContributionsBudgetSocial, model::setValid);
 
         advancedResources = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Resources advances now:  "));
         input.add(advancedResources);
+        FieldUtils.bindDoubleField(advancedResources, model::setAdvancedResources, model::setValid);
 
         resourcesUsed = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Resources used by the\n enterprise:  "));
         input.add(resourcesUsed);
+        FieldUtils.bindDoubleField(resourcesUsed, model::setResourcesUsed, model::setValid);
 
         costJobs = new JTextField();
         input.add(LabelUtils.createWrappedLabel("The average annual cost of\n jobs:  "));
         input.add(costJobs);
+        FieldUtils.bindDoubleField(costJobs, model::setCostJobs, model::setValid);
 
         profitableMarketCapacity = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Profitable market capacity:  "));
         input.add(profitableMarketCapacity);
+        FieldUtils.bindDoubleField(profitableMarketCapacity, model::setProfitableMarketCapacity, model::setValid);
 
         grossIncomeWorker1 = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Gross profit per 1 worker:  "));
         input.add(grossIncomeWorker1);
+        FieldUtils.bindDoubleField(grossIncomeWorker1, model::setGrossIncomeWorker, model::setValid);
 
         grossIncomeGeneral = new JTextField();
         input.add(LabelUtils.createWrappedLabel("The total gross profit:  "));
         input.add(grossIncomeGeneral);
+        FieldUtils.bindDoubleField(grossIncomeGeneral, model::setGrossIncomeGeneral, model::setValid);
 
         periodTheResultingGross = new JTextField();
         input.add(LabelUtils.createWrappedLabel("Time passed in a period\n for measuring the resulting\n gross income:  "));
         input.add(periodTheResultingGross);
+        FieldUtils.bindDoubleField(periodTheResultingGross, model::setPeriodTheResultingGross, model::setValid);
 
         periodGrossHalf = new JTextField();
         input.add(LabelUtils.createWrappedLabel("The time required for half\n the increase in gross income:   "));
         input.add(periodGrossHalf);
-
+        FieldUtils.bindDoubleField(periodGrossHalf, model::setPeriodGrossHalf, model::setValid);
 
         input.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
         add(input, BorderLayout.CENTER);
-
     }
 
     private void buildOutput() {
@@ -128,51 +147,24 @@ public class CompanyView extends JPanel {
         add(output, BorderLayout.NORTH);
     }
 
-    public void calc() {
-        boolean valid = FieldUtils.validateDoubleFields(
-                netWorth,
-                contributionsBudgetSocial,
-                advancedResources,
-                resourcesUsed,
-                costJobs,
-                profitableMarketCapacity,
-                grossIncomeWorker1,
-                grossIncomeGeneral,
-                periodTheResultingGross,
-                periodGrossHalf
-        );
-
-        if(!valid){
+    public boolean calc() {
+        if (!model.getValid()) {
             //todo show message about something invalid
-            return;
+            return false;
         }
 
-        double netWorthD = FieldUtils.parseDoubleField(netWorth);
-        double contributionsBudgetSocialD = FieldUtils.parseDoubleField(contributionsBudgetSocial);
-        double advancedResourcesD = FieldUtils.parseDoubleField(advancedResources);
-        double resourcesUsedD = FieldUtils.parseDoubleField(resourcesUsed);
-        double costJobsD = FieldUtils.parseDoubleField(costJobs);
-        double profitableMarketCapacityD = FieldUtils.parseDoubleField(profitableMarketCapacity);
-        double grossIncomeWorker1D = FieldUtils.parseDoubleField(grossIncomeWorker1);
-        double grossIncomeGeneralD = FieldUtils.parseDoubleField(grossIncomeGeneral);
-        double periodTheResultingGrossD = FieldUtils.parseDoubleField(periodTheResultingGross);
-        double periodGrossHalfD = FieldUtils.parseDoubleField(periodGrossHalf);
-
-        double ind1 = (netWorthD / contributionsBudgetSocialD) / (advancedResourcesD / resourcesUsedD);
-        double ind2 = netWorthD / costJobsD;
-        double ind3 = netWorthD / profitableMarketCapacityD;
-        double ind4 = grossIncomeWorker1D / grossIncomeGeneralD;
-        double ind5 = periodTheResultingGrossD / periodGrossHalfD;
+        model.calc();
 
         StringBuilder result = new StringBuilder();
-        result.append(" Indicator of resource use:    ").append(ind1).append("\n");
-        result.append(" Indicator of use of work:    ").append(ind2).append("\n");
-        result.append(" Indicator market size:    ").append(ind3).append("\n");
-        result.append(" Profitability indicator:    ").append(ind4).append("\n");
-        result.append(" Indicator time use resource:    ").append(ind5).append("\n");
+        result.append(" Indicator of resource use:    ").append(model.getIndRes()).append("\n");
+        result.append(" Indicator of use of work:    ").append(model.getIndWork()).append("\n");
+        result.append(" Indicator market size:    ").append(model.getIndMar()).append("\n");
+        result.append(" Profitability indicator:    ").append(model.getIndRent()).append("\n");
+        result.append(" Indicator time use resource:    ").append(model.getIndTime()).append("\n");
 
         indicator.setText(result.toString());
         output.setVisible(true);
+        return true;
     }
 
     public void delete() {
@@ -199,6 +191,10 @@ public class CompanyView extends JPanel {
 
         output.setVisible(false);
         updateUI();
+    }
+
+    public CompanyModel getModel() {
+        return model;
     }
 
 }

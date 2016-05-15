@@ -1,6 +1,7 @@
 package modeling.ui.view;
 
 import modeling.ui.ViewHolder;
+import modeling.ui.view.indicator.IndicatorMatrixView;
 import modeling.ui.view.indicator.IndicatorMethodView;
 
 import java.util.HashMap;
@@ -23,6 +24,10 @@ public class ViewManager {
 
     public static IndicatorMethodView getIndicatorMethodView() {
         return lazyInit(IndicatorMethodView.class);
+    }
+
+    public static IndicatorMatrixView getIndicatorMatrixView() {
+        return lazyInit(IndicatorMatrixView.class);
     }
 
     @SuppressWarnings("unchecked")

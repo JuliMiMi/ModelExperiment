@@ -1,13 +1,25 @@
 package modeling.ui.view.indicator;
 
+import modeling.ui.ViewHolder;
 import modeling.ui.view.View;
 import modeling.ui.view.ViewManager;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -64,21 +76,21 @@ public class IndicatorMethodView extends JPanel implements View {
     }
 
     private void clearAll() {
-        for (CompanyView companyView : companies) {
-            companyView.clear();
-        }
+        companies.forEach(CompanyView::clear);
     }
 
     private void calcAll() {
-        for (CompanyView companyView : companies) {
-            companyView.calc();
+        boolean allValid = companies.stream().allMatch(companyView -> companyView.getModel().getValid());
+
+        if (allValid) {
+            companies.forEach(CompanyView::calc);
+        } else {
+            JOptionPane.showMessageDialog(null, "Some models invalid, please check them");
         }
     }
 
     private void deleteAll() {
-        for (CompanyView company : companies) {
-            company.delete();
-        }
+        companies.forEach(CompanyView::delete);
         companies.clear();
     }
 
@@ -124,6 +136,23 @@ public class IndicatorMethodView extends JPanel implements View {
         JMenuItem calculate = new JMenuItem("Calculate");
         calculate.addActionListener(event -> calcAll());
         operation.add(calculate);
+
+        JMenuItem matrix = new JMenuItem("Show matrix");
+        matrix.addActionListener(event -> {
+            ViewHolder viewHolder = ViewManager.getViewHolder();
+            IndicatorMatrixView indicatorMatrixView = ViewManager.getIndicatorMatrixView();
+
+            boolean allValid = companies.stream().allMatch(companyView -> companyView.getModel().getValid());
+
+            if (allValid) {
+                List<CompanyModel> models = this.companies.stream().map(CompanyView::getModel).collect(Collectors.toList());
+                indicatorMatrixView.buildCompetitivenessMatrix(models);
+                viewHolder.setView(indicatorMatrixView);
+            } else {
+                JOptionPane.showMessageDialog(null, "Some models invalid, please check them");
+            }
+        });
+        operation.add(matrix);
 
         JMenuItem deleteAll = new JMenuItem("Delete all");
         deleteAll.addActionListener(event -> deleteAll());
