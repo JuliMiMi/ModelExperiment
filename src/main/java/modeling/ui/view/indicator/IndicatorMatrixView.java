@@ -32,17 +32,17 @@ public class IndicatorMatrixView extends JPanel implements View {
     public JTable buildCompetitivenessMatrix(Collection<CompanyModel> companyModels) {
         JPanel competitivenessMatrix = new JPanel(new BorderLayout());
 
-        Object[] header = {" ", "Indicators", "CR", " ", "CW", " ", "CM", " ", "CP", " ", "CT", " " };
+        Object[] header = {" ", "Indicators", "CR", " ", "CW", " ", "CM", " ", "CP", " ", "CT", " "};
         Object[][] standardData = {
                 {"№", " ", "1", " ", "2", " ", "3", "4", " ", "5", " ",},
-                {" ", "Levels of competitiveness", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point" },
-                {"1", "Global leadership", "5", "100", "3.5", "100", "0.5", "100", "1", "100", "0.7", "100" },
-                {"2", "World standard", "3.81", "76.2", "2.8", "80", "0.44", "88", "0.9", "90", "0.62", "88.57" },
-                {"3", "National leadership", "2.94", "58.8", "2.5", "71.43", "0.36", "72", "0.78", "78", "0.46", "65.71" },
-                {"4", "National standard", "2.46", "49.2", "2.4", "68.57", "0.3", "60", "0.66", "66", "0.36", "51.43" },
-                {"5", "Sectoral leadership", "2.18", "43.6", "2.06", "58.86", "0.19", "38", "0.51", "51", "0.27", "38.57" },
-                {"6", "Industry standards", "1.67", "33.4", "1.6", "45.71", "0.07", "14", "0.38", "38", "0.15", "21.43" },
-                {"7", "Threshold level", "1.33", "26.6", "1", "28.57", "0.01", "2", "0.15", "15", "0.09", "12.86" },
+                {" ", "Levels of competitiveness", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point"},
+                {"1", "Global leadership", "5", "100", "3.5", "100", "0.5", "100", "1", "100", "0.7", "100"},
+                {"2", "World standard", "3.81", "76.2", "2.8", "80", "0.44", "88", "0.9", "90", "0.62", "88.57"},
+                {"3", "National leadership", "2.94", "58.8", "2.5", "71.43", "0.36", "72", "0.78", "78", "0.46", "65.71"},
+                {"4", "National standard", "2.46", "49.2", "2.4", "68.57", "0.3", "60", "0.66", "66", "0.36", "51.43"},
+                {"5", "Sectoral leadership", "2.18", "43.6", "2.06", "58.86", "0.19", "38", "0.51", "51", "0.27", "38.57"},
+                {"6", "Industry standards", "1.67", "33.4", "1.6", "45.71", "0.07", "14", "0.38", "38", "0.15", "21.43"},
+                {"7", "Threshold level", "1.33", "26.6", "1", "28.57", "0.01", "2", "0.15", "15", "0.09", "12.86"},
         };
 
         DefaultTableModel defaultTableModel = new DefaultTableModel(standardData, header);
@@ -88,62 +88,44 @@ public class IndicatorMatrixView extends JPanel implements View {
     }
 
 
-
     private JTable buildSummaryMatrix(Collection<CompanyModel> companyModels) {
-        JPanel resMatrix = new JPanel(new BorderLayout());
+        JPanel summaryMatrix = new JPanel(new BorderLayout());
 
         DefaultTableModel resultTableModel = new DefaultTableModel();
 
-        JTable tableRes = new JTable(resultTableModel);
-        tableRes.getColumnModel().setColumnMargin(20);
-        tableRes.setSize(1000, 500);
-        tableRes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tableRes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        tableRes.setCellSelectionEnabled(true);
-        tableRes.setDropMode(DropMode.USE_SELECTION);
-        tableRes.updateUI();
+        resultTableModel.addColumn("Levels of competitiveness", new Object[]{
+                "Global leadership", "World standard", "National leadership", "National standard", "Sectoral leadership", "Industry standards", "Threshold level"
+        });
 
-        this.add(resMatrix);
-        resMatrix.add(tableRes, BorderLayout.SOUTH);
-
-
-         resultTableModel.addColumn(new Object[]
-                 {"Levels of competitiveness"});
         for (CompanyModel companyModel : companyModels) {
-            resultTableModel.addColumn(new Object[]{
-                    companyModel.getName()
+            resultTableModel.addColumn(companyModel.getName(), new Object[]{
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 100 + 100 + 100 + 100 + 100,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 76.2 + 80 + 88 + 90 + 88.57,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 58.8 + 71.43 + 72 + 78 + 65.71,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 49.2 + 68.57 + 60 + 66 + 51.43,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 43.6 + 57.86 + 38 + 51 + 38 + 57,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 33.4 + 45.71 + 14 + 38 + 21.43,
+                    companyModel.getIndRes() + companyModel.getIndWork() + companyModel.getIndMar() + companyModel.getIndRent() + companyModel.getIndTime() / 26.6 + 28.57 + 2 + 15 + 12.86
             });
         }
 
-        for (CompanyModel companyModel : companyModels) {
-            resultTableModel.addColumn(new Object[][]{
+        JTable table = new JTable(resultTableModel);
+        table.getColumnModel().setColumnMargin(20);
+        table.setSize(1000, 500);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        table.setCellSelectionEnabled(true);
+        table.setDropMode(DropMode.USE_SELECTION);
+        table.updateUI();
 
-                    {"Global leadership", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            100+100+100+100+100},
-                    {"World standard", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            76.2+80+88+90+88.57},
-                    {"National leadership", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            58.8+71.43+72+78+65.71},
-                    {"National standard", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            49.2+68.57+60+66+51.43},
-                    {"Sectoral leadership", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            43.6+57.86+38+51+38+57},
-                    {"Industry standards", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            33.4+45.71+14+38+21.43},
-                    {"Threshold level", companyModel.getIndRes()+companyModel.getIndWork()+
-                            companyModel.getIndMar()+companyModel.getIndRent()+companyModel.getIndTime()/
-                            26.6+28.57+2+15+12.86 }
-            });
-        }
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setReorderingAllowed(false);
 
-        return null;
+        summaryMatrix.add(tableHeader, BorderLayout.CENTER);
+        summaryMatrix.add(table, BorderLayout.SOUTH);
 
+        this.add(summaryMatrix);
+        return table;
     }
 
     @Override
