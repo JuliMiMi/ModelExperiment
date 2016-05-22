@@ -8,7 +8,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.DropMode;
 import javax.swing.JMenuBar;
@@ -24,10 +23,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.geom.Arc2D;
-import java.awt.geom.CubicCurve2D;
 import java.util.Collection;
-import java.lang.Double;
 
 /**
  * Created by Julia on 15.05.2016.
@@ -233,29 +229,14 @@ public class IndicatorMatrixView extends JPanel implements View {
 
     private void buildChart(Collection<CompanyModel> companyModels) {
         XYSeriesCollection dataset = new XYSeriesCollection();
-
-
         JPanel gistogr = new JPanel(new BorderLayout());
         this.add(gistogr);
-        DefaultTableModel leveles = new DefaultTableModel();
 
-
+        Integer xValue = 0;
         for (CompanyModel companyModel : companyModels) {
 
-            final XYSeries series = new XYSeries("Test name");
-            Integer xValue = 0;
+            final XYSeries series = new XYSeries(companyModel.getName());
             Double y = 0.0;
-
-            leveles.addColumn(companyModel.getName(), new Object[]{
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (76.2 + 80 + 88 + 90 + 88.57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (58.8 + 71.43 + 72 + 78 + 65.71)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (26.6 + 28.57 + 2 + 15 + 12.86))
-            });
-
 
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100) < 1) {
                 y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100);
@@ -280,14 +261,10 @@ public class IndicatorMatrixView extends JPanel implements View {
             }
 
 
-            xValue += 10;
+            xValue += 20;
             series.add(xValue, y);
             dataset.addSeries(series);
-
-
         }
-
-
 
         JFreeChart chart = ChartFactory.createXYBarChart("Test title", "Test X label", true, "Test Y label", dataset, PlotOrientation.VERTICAL, true, true, true);
         ChartPanel chartPanel = new ChartPanel(chart);
