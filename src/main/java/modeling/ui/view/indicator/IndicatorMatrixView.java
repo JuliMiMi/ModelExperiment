@@ -1,13 +1,28 @@
 package modeling.ui.view.indicator;
 
 import modeling.ui.view.View;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.DropMode;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.Collection;
 
 /**
@@ -24,7 +39,7 @@ public class IndicatorMatrixView extends JPanel implements View {
     public void setModel(Collection<CompanyModel> companyModels) {
         buildCompetitivenessMatrix(companyModels);
         buildSummaryMatrix(companyModels);
-
+        buildChart(companyModels);
     }
 
     public JTable buildCompetitivenessMatrix(Collection<CompanyModel> companyModels) {
@@ -210,8 +225,22 @@ public class IndicatorMatrixView extends JPanel implements View {
             levelSo.add(levelS);
 
         }
+    }
 
+    private void buildChart(Collection<CompanyModel> companyModels){
+        final XYSeries series = new XYSeries("Test name");
 
+        for (CompanyModel companyModel : companyModels) {
+            //тут считаешь данные и добавляешь их в series
+            //series.add();
+        }
+
+        XYSeriesCollection dataset = new XYSeriesCollection(series);
+
+        JFreeChart chart = ChartFactory.createXYBarChart("Test title", "Test X label", true, "Test Y label", dataset, PlotOrientation.VERTICAL, true, true, true);
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        //и прикрути chartPanel кудато
     }
 
 
