@@ -1,5 +1,7 @@
 package modeling.ui.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -33,7 +35,7 @@ public class FieldUtils {
     public static void bindStringField(JTextField field, Consumer<String> setter, Consumer<Boolean> validSetter) {
         onDocumentChange(field, e -> {
             String text = field.getText();
-            if (text != null && text.length() > 0) {
+            if (StringUtils.isNotEmpty(text)) {
                 setter.accept(text);
                 validSetter.accept(Boolean.TRUE);
             } else {
