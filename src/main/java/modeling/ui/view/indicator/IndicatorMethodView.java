@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -47,7 +48,10 @@ public class IndicatorMethodView extends JPanel implements View {
     private JPanel buildHeader() {
         JPanel header = new JPanel(new BorderLayout());
 
-        JLabel initialData = new JLabel("Please enter the initial data");
+        JLabel initialData = new JLabel("Вихідні дані");
+        initialData.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
+                BorderFactory.createEmptyBorder(4, 4, 4, 4)));
         initialData.setBackground(Color.PINK);
         initialData.setFont(new Font("Cambria", Font.PLAIN, 22));
         header.add(initialData, BorderLayout.NORTH);
@@ -103,7 +107,7 @@ public class IndicatorMethodView extends JPanel implements View {
     public JMenuBar getMenu() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu method = new JMenu("Method");
+      /*  JMenu method = new JMenu("Method");
         menuBar.add(method);
 
         JMenuItem indicator = new JMenuItem("Indicator");
@@ -120,24 +124,27 @@ public class IndicatorMethodView extends JPanel implements View {
         financialPosition.addActionListener(event -> {
             //TODO switch into FinancialPositionMethodView
         });
-        method.add(financialPosition);
+        method.add(financialPosition);*/
 
-        JMenu operation = new JMenu("Operation");
+        /*JMenu operation = new JMenu("Operation");
+        menuBar.add(operation);*/
+
+        JMenu operation = new JMenu("Обрати операцію");
         menuBar.add(operation);
 
-        JMenuItem addCompany = new JMenuItem("Add company");
+        JMenuItem addCompany = new JMenuItem("Додати підприємство");
         addCompany.addActionListener(event -> addCompany());
         operation.add(addCompany);
 
-        JMenuItem clearAll = new JMenuItem("Clear all");
+      /*  JMenuItem clearAll = new JMenuItem("Очистити форму");
         clearAll.addActionListener(event -> clearAll());
-        operation.add(clearAll);
+        operation.add(clearAll);*/
 
-        JMenuItem calculate = new JMenuItem("Calculate");
+        JMenuItem calculate = new JMenuItem("Розрахувати індикатори");
         calculate.addActionListener(event -> calcAll());
         operation.add(calculate);
 
-        JMenuItem matrix = new JMenuItem("Show matrix");
+        JMenuItem matrix = new JMenuItem("Перейти до матриці КПП");
         matrix.addActionListener(event -> {
             ViewHolder viewHolder = ViewManager.getViewHolder();
             IndicatorMatrixView indicatorMatrixView = ViewManager.getIndicatorMatrixView();
@@ -155,7 +162,7 @@ public class IndicatorMethodView extends JPanel implements View {
         });
         operation.add(matrix);
 
-        JMenuItem deleteAll = new JMenuItem("Delete all");
+        JMenuItem deleteAll = new JMenuItem("Видалити всі компанії");
         deleteAll.addActionListener(event -> deleteAll());
         operation.add(deleteAll);
 

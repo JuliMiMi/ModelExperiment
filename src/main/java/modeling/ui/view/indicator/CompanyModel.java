@@ -26,11 +26,11 @@ public class CompanyModel {
     private Double indTime;
 
     public void calc() {
-        indRes = (netWorth / contributionsBudgetSocial) / (advancedResources / resourcesUsed);
-        indWork = netWorth / costJobs;
-        indMar = netWorth / profitableMarketCapacity;
-        indRent = grossIncomeWorker / grossIncomeGeneral;
-        indTime = periodTheResultingGross / periodGrossHalf;
+        String.format("%.2f", indRes = (netWorth / contributionsBudgetSocial) / (advancedResources / resourcesUsed));
+        String.format("%.2f", indWork = netWorth / costJobs);
+        String.format("%.2f", indMar = netWorth / profitableMarketCapacity);
+        String.format("%.2f", indRent = grossIncomeWorker / grossIncomeGeneral);
+        String.format("%.2f", indTime = periodTheResultingGross / periodGrossHalf);
     }
 
     public Boolean getValid() {

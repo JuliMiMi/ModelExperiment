@@ -1,6 +1,7 @@
 package modeling;
 
 import modeling.ui.ViewHolder;
+import modeling.ui.view.GreetingsView;
 import modeling.ui.view.ViewManager;
 import modeling.ui.view.indicator.IndicatorMethodView;
 
@@ -14,8 +15,10 @@ public class Loader {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             ViewHolder viewHolder = ViewManager.getViewHolder();
+            GreetingsView gritingsView = ViewManager.getGreetingsView();
             IndicatorMethodView viewMethod1 = ViewManager.getIndicatorMethodView();
             viewHolder.setView(viewMethod1);
+            viewHolder.setView(gritingsView);
         });
     }
 }

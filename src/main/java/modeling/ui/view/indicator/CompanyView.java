@@ -54,11 +54,11 @@ public class CompanyView extends JPanel {
         JPanel buttons = new JPanel(new GridLayout(2, 1));
         add(buttons, BorderLayout.SOUTH);
 
-        JButton clearButton = new JButton("Clear");
+        JButton clearButton = new JButton("Очистити форму");
         clearButton.addActionListener(e -> clear());
         buttons.add(clearButton);
 
-        JButton deleteCompany = new JButton("Delete Company");
+        JButton deleteCompany = new JButton("Видалити компанію");
         buttons.add(deleteCompany);
         deleteCompany.addActionListener(e -> delete());
 
@@ -72,57 +72,69 @@ public class CompanyView extends JPanel {
         JPanel input = new JPanel((new GridLayout(0, 4, 5, 5)));
 
         name = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Company name:  "));
+        name.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Назва підприємства:  "));
         input.add(name);
         FieldUtils.bindStringField(name, model::setName, model::setValid);
 
         netWorth = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Net worth:  "));
+        netWorth.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Чистий прибуток:  "));
         input.add(netWorth);
         FieldUtils.bindDoubleField(netWorth, model::setNetWorth, model::setValid);
 
         contributionsBudgetSocial = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Contributions to the\n budget and social funds:  "));
+        contributionsBudgetSocial.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Відрахування в бюджет і \nсоціальні фонди:  "));
         input.add(contributionsBudgetSocial);
         FieldUtils.bindDoubleField(contributionsBudgetSocial, model::setContributionsBudgetSocial, model::setValid);
 
         advancedResources = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Resources advances now:  "));
+        advancedResources.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Ресурси, авансовіні  \nпідприємством:  "));
         input.add(advancedResources);
         FieldUtils.bindDoubleField(advancedResources, model::setAdvancedResources, model::setValid);
 
         resourcesUsed = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Resources used by the\n enterprise:  "));
+        resourcesUsed.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Ресурси, використані  \nпідприємством:  "));
         input.add(resourcesUsed);
         FieldUtils.bindDoubleField(resourcesUsed, model::setResourcesUsed, model::setValid);
 
         costJobs = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("The average annual cost of\n jobs:  "));
+        costJobs.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Вартість робочих місць  \n(середньорічна):  "));
         input.add(costJobs);
         FieldUtils.bindDoubleField(costJobs, model::setCostJobs, model::setValid);
 
         profitableMarketCapacity = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Profitable market capacity:  "));
+        profitableMarketCapacity.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Прибуткова місткість\n ринку:  "));
         input.add(profitableMarketCapacity);
         FieldUtils.bindDoubleField(profitableMarketCapacity, model::setProfitableMarketCapacity, model::setValid);
 
         grossIncomeWorker1 = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Gross profit per 1 worker:  "));
+        grossIncomeWorker1.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Валовий дохід в розрахунку\n на 1 робітника, включаючи \nвласників:  "));
         input.add(grossIncomeWorker1);
         FieldUtils.bindDoubleField(grossIncomeWorker1, model::setGrossIncomeWorker, model::setValid);
 
-        grossIncomeGeneral = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("The total gross profit:  "));
-        input.add(grossIncomeGeneral);
-        FieldUtils.bindDoubleField(grossIncomeGeneral, model::setGrossIncomeGeneral, model::setValid);
-
         periodTheResultingGross = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("Time passed in a period\n for measuring the resulting\n gross income:  "));
+        periodTheResultingGross.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Час, прийнятий в якості періоду\n для  виміру отриманого валового\n доходу:  "));
         input.add(periodTheResultingGross);
         FieldUtils.bindDoubleField(periodTheResultingGross, model::setPeriodTheResultingGross, model::setValid);
 
+        grossIncomeGeneral = new JTextField();
+        grossIncomeGeneral.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Валовий дохід, \nщо формується в eкономіці \nкраїни в цілому:  "));
+        input.add(grossIncomeGeneral);
+        FieldUtils.bindDoubleField(grossIncomeGeneral, model::setGrossIncomeGeneral, model::setValid);
+
+
         periodGrossHalf = new JTextField();
-        input.add(LabelUtils.createWrappedLabel("The time required for half\n the increase in gross income:   "));
+        periodGrossHalf.setFont(new Font("Cambria", Font.PLAIN, 20));
+        input.add(LabelUtils.createWrappedLabel("Час, необхідний \nдля  збільшення \nйого вдвічі:   "));
         input.add(periodGrossHalf);
         FieldUtils.bindDoubleField(periodGrossHalf, model::setPeriodGrossHalf, model::setValid);
 
@@ -156,11 +168,11 @@ public class CompanyView extends JPanel {
         model.calc();
 
         StringBuilder result = new StringBuilder();
-        result.append(" Indicator of resource use:    ").append(model.getIndRes()).append("\n");
-        result.append(" Indicator of use of work:    ").append(model.getIndWork()).append("\n");
-        result.append(" Indicator market size:    ").append(model.getIndMar()).append("\n");
-        result.append(" Profitability indicator:    ").append(model.getIndRent()).append("\n");
-        result.append(" Indicator time use resource:    ").append(model.getIndTime()).append("\n");
+        result.append(" Індикатор використання ресурсів:    ").append(model.getIndRes()).append("\n");
+        result.append(" Індикатор використання трудового потенціалу:    ").append(model.getIndWork()).append("\n");
+        result.append(" Індикатор ємності ринку:    ").append(model.getIndMar()).append("\n");
+        result.append(" Індикатор прибутковості:    ").append(model.getIndRent()).append("\n");
+        result.append(" Індикатор використання часового ресурсу:    ").append(model.getIndTime()).append("\n");
 
         indicator.setText(result.toString());
         output.setVisible(true);
