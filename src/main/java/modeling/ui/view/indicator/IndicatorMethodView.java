@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class IndicatorMethodView extends JPanel implements View {
         header.add(initialData, BorderLayout.NORTH);
         initialData.setHorizontalAlignment(SwingConstants.CENTER);
 
-        header.setBackground(Color.PINK);
+        header.setBackground(Color.getHSBColor(33, 194, 27));
         return header;
     }
 
@@ -98,6 +99,84 @@ public class IndicatorMethodView extends JPanel implements View {
         companies.clear();
     }
 
+    private void defaultValue() {
+
+        companies.forEach(CompanyView::delete);
+        companies.clear();
+
+        CompanyView companyView = new CompanyView(companiesHolder);
+        CompanyView companyView2 = new CompanyView(companiesHolder);
+        CompanyView companyView3 = new CompanyView(companiesHolder);
+        CompanyView companyView4 = new CompanyView(companiesHolder);
+
+
+        companyView.setName("ПАТ \"ДТЗ\"") ;
+        companyView.setNetWorth("4714501");
+        companyView.setContributionsBudgetSocial("121897");
+        companyView.setAdvancedResources("2314151");
+        companyView.setResourcesUsed("95647");
+        companyView.setCostJobs("2705108");
+        companyView.setProfitableMarketCapacity("25634541");
+        companyView.setGrossIncomeWorker("3500080");
+        companyView.setPeriodTheResultingGross("12");
+        companyView.setGrossIncomeGeneral("20925348");
+        companyView.setPeriodGrossHalf("42");
+
+        companyView2.setName("ОАО \"ЮТіСТ\"");
+        companyView2.setNetWorth("5962544");
+        companyView2.setContributionsBudgetSocial("136451");
+        companyView2.setAdvancedResources("3164519");
+        companyView2.setResourcesUsed("75642");
+        companyView2.setCostJobs("1944774");
+        companyView2.setProfitableMarketCapacity("25684545");
+        companyView2.setGrossIncomeWorker("2654535");
+        companyView2.setPeriodTheResultingGross("12");
+        companyView2.setGrossIncomeGeneral("36454885");
+        companyView2.setPeriodGrossHalf("50");
+
+        companyView3.setName("ПАТ \"Інтерпайн НТЗ\"");
+        companyView3.setNetWorth("61254628");
+        companyView3.setContributionsBudgetSocial("30045");
+        companyView3.setAdvancedResources("30044512");
+        companyView3.setResourcesUsed("35701");
+        companyView3.setCostJobs("28051454");
+        companyView3.setProfitableMarketCapacity("304134411");
+        companyView3.setGrossIncomeWorker("8654345");
+        companyView3.setPeriodTheResultingGross("12");
+        companyView3.setGrossIncomeGeneral("30013409");
+        companyView3.setPeriodGrossHalf("30");
+
+        companyView4.setName("Маріупольський ММК");
+        companyView4.setNetWorth("13354628");
+        companyView4.setContributionsBudgetSocial("256452");
+        companyView4.setAdvancedResources("5445420");
+        companyView4.setResourcesUsed("156501");
+        companyView4.setCostJobs("6551456");
+        companyView4.setProfitableMarketCapacity("202013256");
+        companyView4.setGrossIncomeWorker("7054145");
+        companyView4.setPeriodTheResultingGross("12");
+        companyView4.setGrossIncomeGeneral("24513409");
+        companyView4.setPeriodGrossHalf("46");
+
+
+        companies.add(companyView);
+        companiesHolder.add(companyView);
+        updateUI();
+
+        companies.add(companyView2);
+        companiesHolder.add(companyView2);
+        updateUI();
+
+        companies.add(companyView3);
+        companiesHolder.add(companyView3);
+        updateUI();
+
+        companies.add(companyView4);
+        companiesHolder.add(companyView4);
+        updateUI();
+    }
+
+
     @Override
     public JPanel getContent() {
         return this;
@@ -136,9 +215,6 @@ public class IndicatorMethodView extends JPanel implements View {
         addCompany.addActionListener(event -> addCompany());
         operation.add(addCompany);
 
-      /*  JMenuItem clearAll = new JMenuItem("Очистити форму");
-        clearAll.addActionListener(event -> clearAll());
-        operation.add(clearAll);*/
 
         JMenuItem calculate = new JMenuItem("Розрахувати індикатори");
         calculate.addActionListener(event -> calcAll());
@@ -165,6 +241,10 @@ public class IndicatorMethodView extends JPanel implements View {
         JMenuItem deleteAll = new JMenuItem("Видалити всі компанії");
         deleteAll.addActionListener(event -> deleteAll());
         operation.add(deleteAll);
+
+        JMenuItem defaultVal = new JMenuItem("Значення по замовчуванням");
+        defaultVal.addActionListener(event -> defaultValue());
+        operation.add(defaultVal);
 
         return menuBar;
     }

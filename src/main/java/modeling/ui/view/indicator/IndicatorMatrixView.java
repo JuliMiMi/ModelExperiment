@@ -19,10 +19,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.geom.CubicCurve2D;
 import java.util.Collection;
 
 /**
@@ -31,7 +30,7 @@ import java.util.Collection;
 public class IndicatorMatrixView extends JPanel implements View {
 
     public IndicatorMatrixView() {
-        super(new GridLayout(0, 1, 20, 20));
+        super(new BorderLayout(10, 10));
         setOpaque(true);
         updateUI();
     }
@@ -40,18 +39,16 @@ public class IndicatorMatrixView extends JPanel implements View {
         buildCompetitivenessMatrix(companyModels);
         buildSummaryMatrix(companyModels);
         buildChart(companyModels);
+        this.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)));
     }
 
     public JTable buildCompetitivenessMatrix(Collection<CompanyModel> companyModels) {
 
         JPanel competitivenessMatrix = new JPanel(new BorderLayout());
-        competitivenessMatrix.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createBevelBorder(BevelBorder.LOWERED),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
-        setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(Color.WHITE, 4, true),
-                BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
         setBackground(Color.PINK);
 
    /*     Object[] header = {"№", "Indicators", "CR", " ", "CW", " ", "CM", " ", "CP", " ", "CT", " "};
@@ -120,9 +117,8 @@ public class IndicatorMatrixView extends JPanel implements View {
         tableHeader.setReorderingAllowed(false);
 
         competitivenessMatrix.add(tableHeader, BorderLayout.NORTH);
-        competitivenessMatrix.add(table, BorderLayout.CENTER);
-
-        this.add(competitivenessMatrix);
+        competitivenessMatrix.add(table, BorderLayout.SOUTH);
+        this.add(competitivenessMatrix, BorderLayout.NORTH);
         return table;
     }
 
@@ -131,7 +127,9 @@ public class IndicatorMatrixView extends JPanel implements View {
 
 
         JPanel summaryMatrix = new JPanel(new BorderLayout());
-        summaryMatrix.setBorder(BorderFactory.createCompoundBorder(
+
+
+        this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
@@ -156,6 +154,7 @@ public class IndicatorMatrixView extends JPanel implements View {
         }
 
         JTable table = new JTable(resultTableModel);
+        table.setBackground(Color.PINK);
         table.getColumnModel().setColumnMargin(20);
         table.setSize(1000, 500);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -168,18 +167,18 @@ public class IndicatorMatrixView extends JPanel implements View {
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setReorderingAllowed(false);
 
-        summaryMatrix.add(tableHeader, BorderLayout.CENTER);
-        summaryMatrix.add(table, BorderLayout.SOUTH);
+        summaryMatrix.add(tableHeader, BorderLayout.NORTH);
+        summaryMatrix.add(table, BorderLayout.CENTER);
         // return table;
-        this.add(summaryMatrix);
+        this.add(summaryMatrix, BorderLayout.CENTER);
 
 
         StringBuilder levelSearch = new StringBuilder();
         JTextArea levelS = new JTextArea();
-        levelS.setFont(new Font("Cambria", Font.PLAIN, 22));
+        levelS.setFont(new Font("Cambria", Font.PLAIN, 16));
         String level = " ";
         JPanel levelSo = new JPanel(new BorderLayout());
-        this.add(levelSo);
+        this.add(levelSo, BorderLayout.EAST);
         DefaultTableModel leveles = new DefaultTableModel();
         for (CompanyModel companyModel : companyModels) {
 
@@ -218,19 +217,31 @@ public class IndicatorMatrixView extends JPanel implements View {
             }
 
 
-            levelSearch.append(" Підприємство ").append(companyModel.getName()).append(" відноситься до рівня ").append(" ").append(level).append(" ");
+            levelSearch.append(" Підприємство ").append(companyModel.getName()).append(" відноситься \nдо рівня ").append(" ").append(level).append(" \n");
             levelSearch.append("\n");
             levelS.setText(levelSearch.toString());
             levelS.setVisible(true);
-            levelSo.add(levelS);
+            levelSo.add(levelS, BorderLayout.WEST);
+            levelSo.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createBevelBorder(BevelBorder.RAISED),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         }
     }
 
     private void buildChart(Collection<CompanyModel> companyModels) {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        JPanel gistogr = new JPanel(new BorderLayout());
-        this.add(gistogr);
+        JTextArea conclusion = new JTextArea();
+        conclusion.setFont(new Font("Cambria", Font.PLAIN, 20));
+        conclusion.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createBevelBorder(BevelBorder.RAISED),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        JPanel gistogr = new JPanel(new BorderLayout(10, 10));
+//        gistogr.setBorder(BorderFactory.createCompoundBorder(
+//                BorderFactory.createBevelBorder(BevelBorder.RAISED),
+//                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        gistogr.setBackground((Color.pink));
+        this.add(gistogr, BorderLayout.SOUTH);
 
         Integer xValue = 0;
         for (CompanyModel companyModel : companyModels) {
@@ -253,6 +264,7 @@ public class IndicatorMatrixView extends JPanel implements View {
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57) < 1) {
                 y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57);
             }
+
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43) < 1) {
                 y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43);
             }
@@ -261,15 +273,59 @@ public class IndicatorMatrixView extends JPanel implements View {
             }
 
 
-            xValue += 20;
+            xValue += 5;
             series.add(xValue, y);
             dataset.addSeries(series);
         }
-
-        JFreeChart chart = ChartFactory.createXYBarChart("Test title", "Test X label", true, "Test Y label", dataset, PlotOrientation.VERTICAL, true, true, true);
+        JFreeChart chart = ChartFactory.createXYBarChart("Рейтинг підприємств", "Підприємства", true, "Значення", dataset, PlotOrientation.VERTICAL, true, false, true);
         ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createBevelBorder(BevelBorder.LOWERED),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-        gistogr.add(chartPanel);
+
+        gistogr.add(chartPanel, BorderLayout.CENTER);
+        gistogr.add(conclusion, BorderLayout.SOUTH);
+
+
+        StringBuilder conculisionBuild = new StringBuilder();
+        Double max = 0.0;
+        Double best = 0.0;
+        String nameBest = " ";
+        for (CompanyModel companyModel : companyModels) {
+
+
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (26.6 + 28.57 + 2 + 15 + 12.86) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (26.6 + 28.57 + 2 + 15 + 12.86);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (58.8 + 71.43 + 72 + 78 + 65.71) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (58.8 + 71.43 + 72 + 78 + 65.71);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (76.2 + 80 + 88 + 90 + 88.57) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (76.2 + 80 + 88 + 90 + 88.57);
+            }
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100);
+            }
+
+            if (best > max) {
+                max = best;
+                nameBest = companyModel.getName();
+            }
+
+
+        }
+        conculisionBuild.append(" Підприємство ").append(nameBest).append(" має кращі показники конкурентоспроможності потенціалу.");
+        conclusion.setText(conculisionBuild.toString());
     }
 
 
@@ -285,3 +341,4 @@ public class IndicatorMatrixView extends JPanel implements View {
 
 
 }
+

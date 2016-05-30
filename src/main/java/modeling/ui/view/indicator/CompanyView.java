@@ -32,7 +32,7 @@ public class CompanyView extends JPanel {
     private JTextField resourcesUsed;
     private JTextField costJobs;
     private JTextField profitableMarketCapacity;
-    private JTextField grossIncomeWorker1;
+    private JTextField grossIncomeWorker;
     private JTextField grossIncomeGeneral;
     private JTextField periodTheResultingGross;
     private JTextField periodGrossHalf;
@@ -40,6 +40,52 @@ public class CompanyView extends JPanel {
     private JTextArea indicator;
 
     private JPanel output;
+
+
+    public void setName(String name) {
+        this.name.setText(name);
+    }
+
+    public void setNetWorth(String netWorth) {
+        this.netWorth.setText(String.valueOf(netWorth));
+    }
+
+    public void setContributionsBudgetSocial(String contributionsBudgetSocial) {
+        this.contributionsBudgetSocial.setText(String.valueOf(contributionsBudgetSocial));
+    }
+
+    public void setAdvancedResources(String advancedResources) {
+        this.advancedResources.setText(String.valueOf(advancedResources));
+    }
+
+    public void setResourcesUsed(String resourcesUsed) {
+        this.resourcesUsed.setText(String.valueOf(resourcesUsed));
+    }
+
+    public void setCostJobs(String costJobs) {
+        this.costJobs.setText(String.valueOf(costJobs));
+    }
+
+    public void setProfitableMarketCapacity(String profitableMarketCapacity) {
+        this.profitableMarketCapacity.setText(String.valueOf(profitableMarketCapacity));
+    }
+
+    public void setGrossIncomeWorker(String grossIncomeWorker) {
+        this.grossIncomeWorker.setText(String.valueOf(grossIncomeWorker));
+    }
+
+    public void setGrossIncomeGeneral(String grossIncomeGeneral) {
+        this.grossIncomeGeneral.setText(String.valueOf(grossIncomeGeneral));
+    }
+
+    public void setPeriodTheResultingGross(String periodTheResultingGross) {
+        this.periodTheResultingGross.setText(String.valueOf(periodTheResultingGross));
+    }
+
+    public void setPeriodGrossHalf(String periodGrossHalf) {
+        this.periodGrossHalf.setText(String.valueOf(periodGrossHalf));
+    }
+
 
     public CompanyView(JPanel parent) {
         super(new BorderLayout(5, 5));
@@ -49,6 +95,7 @@ public class CompanyView extends JPanel {
         buildInput();
         buildOutput();
     }
+
 
     private void buildCommon() {
         JPanel buttons = new JPanel(new GridLayout(2, 1));
@@ -85,7 +132,7 @@ public class CompanyView extends JPanel {
 
         contributionsBudgetSocial = new JTextField();
         contributionsBudgetSocial.setFont(new Font("Cambria", Font.PLAIN, 20));
-        input.add(LabelUtils.createWrappedLabel("Відрахування в бюджет і \nсоціальні фонди:  "));
+        input.add(LabelUtils.createWrappedLabel("Відрахування в бюджет \nі соціальні фонди:  "));
         input.add(contributionsBudgetSocial);
         FieldUtils.bindDoubleField(contributionsBudgetSocial, model::setContributionsBudgetSocial, model::setValid);
 
@@ -113,15 +160,15 @@ public class CompanyView extends JPanel {
         input.add(profitableMarketCapacity);
         FieldUtils.bindDoubleField(profitableMarketCapacity, model::setProfitableMarketCapacity, model::setValid);
 
-        grossIncomeWorker1 = new JTextField();
-        grossIncomeWorker1.setFont(new Font("Cambria", Font.PLAIN, 20));
+        grossIncomeWorker = new JTextField();
+        grossIncomeWorker.setFont(new Font("Cambria", Font.PLAIN, 20));
         input.add(LabelUtils.createWrappedLabel("Валовий дохід в розрахунку\n на 1 робітника, включаючи \nвласників:  "));
-        input.add(grossIncomeWorker1);
-        FieldUtils.bindDoubleField(grossIncomeWorker1, model::setGrossIncomeWorker, model::setValid);
+        input.add(grossIncomeWorker);
+        FieldUtils.bindDoubleField(grossIncomeWorker, model::setGrossIncomeWorker, model::setValid);
 
         periodTheResultingGross = new JTextField();
         periodTheResultingGross.setFont(new Font("Cambria", Font.PLAIN, 20));
-        input.add(LabelUtils.createWrappedLabel("Час, прийнятий в якості періоду\n для  виміру отриманого валового\n доходу:  "));
+        input.add(LabelUtils.createWrappedLabel("Час, прийнятий в якості \nперіоду для  виміру отриманого \nвалового доходу:  "));
         input.add(periodTheResultingGross);
         FieldUtils.bindDoubleField(periodTheResultingGross, model::setPeriodTheResultingGross, model::setValid);
 
@@ -194,7 +241,7 @@ public class CompanyView extends JPanel {
                 resourcesUsed,
                 costJobs,
                 profitableMarketCapacity,
-                grossIncomeWorker1,
+                grossIncomeWorker,
                 grossIncomeGeneral,
                 periodTheResultingGross,
                 periodGrossHalf,
@@ -208,5 +255,6 @@ public class CompanyView extends JPanel {
     public CompanyModel getModel() {
         return model;
     }
+
 
 }
