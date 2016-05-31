@@ -1,6 +1,7 @@
 package modeling.ui.util;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -10,7 +11,7 @@ public class LabelUtils {
 
     public static JLabel createWrappedLabel(String text) {
         JLabel label = new JLabel();
-        label.setHorizontalAlignment(SwingConstants.TRAILING);
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
         label.setVerticalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Cambria", Font.PLAIN, 14));
 

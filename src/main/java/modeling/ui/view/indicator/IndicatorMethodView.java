@@ -58,7 +58,7 @@ public class IndicatorMethodView extends JPanel implements View {
         header.add(initialData, BorderLayout.NORTH);
         initialData.setHorizontalAlignment(SwingConstants.CENTER);
 
-        header.setBackground(Color.getHSBColor(33, 194, 27));
+        header.setBackground(Color.getHSBColor(45, 256, 7));
         return header;
     }
 
@@ -110,7 +110,7 @@ public class IndicatorMethodView extends JPanel implements View {
         CompanyView companyView4 = new CompanyView(companiesHolder);
 
 
-        companyView.setName("ПАТ \"ДТЗ\"") ;
+        companyView.setName("ПАТ \"ДТЗ\"");
         companyView.setNetWorth("4714501");
         companyView.setContributionsBudgetSocial("121897");
         companyView.setAdvancedResources("2314151");
@@ -186,6 +186,7 @@ public class IndicatorMethodView extends JPanel implements View {
     public JMenuBar getMenu() {
         JMenuBar menuBar = new JMenuBar();
 
+
       /*  JMenu method = new JMenu("Method");
         menuBar.add(method);
 
@@ -208,19 +209,32 @@ public class IndicatorMethodView extends JPanel implements View {
         /*JMenu operation = new JMenu("Operation");
         menuBar.add(operation);*/
 
-        JMenu operation = new JMenu("Обрати операцію");
+        JMenu operation = new JMenu("Меню");
+        operation.setFont(new Font("Cambria", Font.BOLD, 16));
         menuBar.add(operation);
 
         JMenuItem addCompany = new JMenuItem("Додати підприємство");
+        addCompany.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        addCompany.setFont(new Font("Aria", Font.BOLD, 16));
         addCompany.addActionListener(event -> addCompany());
         operation.add(addCompany);
 
 
         JMenuItem calculate = new JMenuItem("Розрахувати індикатори");
+        calculate.setFont(new Font("Aria", Font.BOLD, 16));
+        calculate.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         calculate.addActionListener(event -> calcAll());
         operation.add(calculate);
 
         JMenuItem matrix = new JMenuItem("Перейти до матриці КПП");
+        matrix.setFont(new Font("Aria", Font.BOLD, 16));
+        matrix.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         matrix.addActionListener(event -> {
             ViewHolder viewHolder = ViewManager.getViewHolder();
             IndicatorMatrixView indicatorMatrixView = ViewManager.getIndicatorMatrixView();
@@ -239,10 +253,18 @@ public class IndicatorMethodView extends JPanel implements View {
         operation.add(matrix);
 
         JMenuItem deleteAll = new JMenuItem("Видалити всі компанії");
+        deleteAll.setFont(new Font("Aria", Font.BOLD, 16));
+        deleteAll.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         deleteAll.addActionListener(event -> deleteAll());
         operation.add(deleteAll);
 
         JMenuItem defaultVal = new JMenuItem("Значення по замовчуванням");
+        defaultVal.setFont(new Font("Aria", Font.BOLD, 16));
+        defaultVal.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         defaultVal.addActionListener(event -> defaultValue());
         operation.add(defaultVal);
 

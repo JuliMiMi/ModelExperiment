@@ -23,6 +23,7 @@ import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Created by Julia on 15.05.2016.
@@ -64,6 +65,7 @@ public class IndicatorMatrixView extends JPanel implements View {
                 {"7", "Threshold level", "1.33", "26.6", "1", "28.57", "0.01", "2", "0.15", "15", "0.09", "12.86"},
         };*/
 
+
         Object[] header = {"№", "Стандарти", "КР", " ", "КП", " ", "КЄ", " ", "КД", " ", "КЧ", " "};
         Object[][] standardData = {
 
@@ -103,23 +105,30 @@ public class IndicatorMatrixView extends JPanel implements View {
 
 
         JTable table = new JTable(defaultTableModel);
-        table.getColumnModel().setColumnMargin(20);
-        table.setSize(1000, 500);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        table.setCellSelectionEnabled(true);
-        table.setDropMode(DropMode.USE_SELECTION);
+        table.getColumnModel().setColumnMargin(10);
+        table.getColumnModel().getColumn(0).setMinWidth(10);
+        table.getColumnModel().getColumn(1).setMinWidth(170);
+
+//        table.setSize(1000, 500);
+//        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+//        table.setCellSelectionEnabled(true);
+//        table.setDropMode(DropMode.USE_SELECTION);
         table.setFont(new Font("Cambria", Font.PLAIN, 14));
         table.updateUI();
 
 
         JTableHeader tableHeader = table.getTableHeader();
+
         tableHeader.setReorderingAllowed(false);
+
 
         competitivenessMatrix.add(tableHeader, BorderLayout.NORTH);
         competitivenessMatrix.add(table, BorderLayout.SOUTH);
         this.add(competitivenessMatrix, BorderLayout.NORTH);
         return table;
+
+
     }
 
 
@@ -155,12 +164,13 @@ public class IndicatorMatrixView extends JPanel implements View {
 
         JTable table = new JTable(resultTableModel);
         table.setBackground(Color.PINK);
-        table.getColumnModel().setColumnMargin(20);
-        table.setSize(1000, 500);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        table.setCellSelectionEnabled(true);
-        table.setDropMode(DropMode.USE_SELECTION);
+        table.getColumnModel().setColumnMargin(10);
+//        table.setSize(1000, 500);
+//        table.setAutoResizeMode(JTable.WIDTH);
+//        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getColumnModel().getColumn(0).setMinWidth(170);
+//        table.setCellSelectionEnabled(true);
+//        table.setDropMode(DropMode.USE_SELECTION);
         table.setFont(new Font("Cambria", Font.PLAIN, 14));
         table.updateUI();
 
