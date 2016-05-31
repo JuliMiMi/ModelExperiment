@@ -95,6 +95,14 @@ public class IndicatorMethodView extends JPanel implements View {
     }
 
     private void deleteAll() {
+        Iterator<CompanyView> iterator = companies.iterator();
+        while (iterator.hasNext()) {
+            CompanyView next = iterator.next();
+            companiesHolder.remove(next);
+            next.updateUI();
+            iterator.remove();
+        }
+        updateUI();
         companies.forEach(CompanyView::delete);
         companies.clear();
     }
