@@ -1,9 +1,16 @@
 package modeling.ui.view;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Created by Julia on 07.05.2016.
@@ -31,10 +38,10 @@ public class GreetingsView extends JPanel implements View {
         jpn1.add(buildAppName());
         jpn1.setBackground(Color.lightGray);
         jpn3.setBackground(Color.WHITE);
-        jpn1.setPreferredSize(new Dimension(400,35));
-        add(buildBackground(),BorderLayout.CENTER);
-        jpn3.setPreferredSize(new Dimension(400,50));
-        jpn3.add(buildStartButton()) ;
+        jpn1.setPreferredSize(new Dimension(400, 35));
+        add(buildBackground(), BorderLayout.CENTER);
+        jpn3.setPreferredSize(new Dimension(400, 50));
+        jpn3.add(buildStartButton());
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -65,7 +72,7 @@ public class GreetingsView extends JPanel implements View {
     private JButton buildStartButton() {
         JButton startButton = new JButton("ПОЧАТИ РОБОТУ");
         startButton.setFont(new Font("Cambria", Font.PLAIN, 20));
-        startButton.setPreferredSize(new Dimension(500,50));
+        startButton.setPreferredSize(new Dimension(500, 50));
         startButton.addActionListener(event -> ViewManager.getViewHolder().setView(ViewManager.getIndicatorMethodView()));
         return startButton;
     }

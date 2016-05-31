@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,7 +74,7 @@ public class IndicatorMethodView extends JPanel implements View {
     }
 
     private void addCompany() {
-        CompanyView companyView = new CompanyView(companiesHolder);
+        CompanyView companyView = new CompanyView(this);
         companies.add(companyView);
         companiesHolder.add(companyView);
         updateUI();
@@ -99,15 +99,28 @@ public class IndicatorMethodView extends JPanel implements View {
         companies.clear();
     }
 
+    public void deleteCompany(CompanyView companyView) {
+        companiesHolder.remove(companyView);
+        companyView.updateUI();
+
+        companies.remove(companyView);
+        updateUI();
+    }
+
     private void defaultValue() {
 
-        companies.forEach(CompanyView::delete);
-        companies.clear();
+        Iterator<CompanyView> iterator = companies.iterator();
+        while (iterator.hasNext()) {
+            CompanyView next = iterator.next();
+            companiesHolder.remove(next);
+            next.updateUI();
+            iterator.remove();
+        }
 
-        CompanyView companyView = new CompanyView(companiesHolder);
-        CompanyView companyView2 = new CompanyView(companiesHolder);
-        CompanyView companyView3 = new CompanyView(companiesHolder);
-        CompanyView companyView4 = new CompanyView(companiesHolder);
+        CompanyView companyView = new CompanyView(this);
+        CompanyView companyView2 = new CompanyView(this);
+        CompanyView companyView3 = new CompanyView(this);
+        CompanyView companyView4 = new CompanyView(this);
 
 
         companyView.setName("ПАТ \"ДТЗ\"");

@@ -23,7 +23,7 @@ public class CompanyView extends JPanel {
 
     private CompanyModel model = new CompanyModel();
 
-    private JPanel parent;
+    private IndicatorMethodView parent;
 
     private JTextField name;
     private JTextField netWorth;
@@ -87,7 +87,7 @@ public class CompanyView extends JPanel {
     }
 
 
-    public CompanyView(JPanel parent) {
+    public CompanyView(IndicatorMethodView parent) {
         super(new BorderLayout(5, 5));
 
         this.parent = parent;
@@ -231,9 +231,7 @@ public class CompanyView extends JPanel {
     }
 
     public void delete() {
-        parent.remove(this);
-        parent.updateUI();
-        updateUI();
+        parent.deleteCompany(this);
     }
 
     public void clear() {

@@ -9,21 +9,18 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.BorderFactory;
-import javax.swing.DropMode;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
-import java.awt.geom.Arc2D;
-import java.awt.geom.CubicCurve2D;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  * Created by Julia on 15.05.2016.

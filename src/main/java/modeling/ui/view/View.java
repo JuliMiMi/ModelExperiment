@@ -1,6 +1,7 @@
 package modeling.ui.view;
 
-import javax.swing.*;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 
 /**
  * Created by Oleksii Martyniuk on 14.05.2016.

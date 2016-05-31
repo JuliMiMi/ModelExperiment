@@ -1,8 +1,8 @@
 package modeling.ui.util;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 /**
  * Created by Oleksii Martyniuk on 09.05.2016.
