@@ -1,5 +1,6 @@
 package modeling.ui.view.indicator;
 
+import modeling.ui.util.ExportUtils;
 import modeling.ui.view.View;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -9,17 +10,24 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -27,13 +35,17 @@ import java.util.Collection;
  */
 public class IndicatorMatrixView extends JPanel implements View {
 
+    private Collection<CompanyModel> companyModels;
+
     public IndicatorMatrixView() {
         super(new BorderLayout(10, 10));
         setOpaque(true);
+        setBackground(Color.PINK);
         updateUI();
     }
 
     public void setModel(Collection<CompanyModel> companyModels) {
+        this.companyModels = companyModels;
         buildCompetitivenessMatrix(companyModels);
         buildSummaryMatrix(companyModels);
         buildChart(companyModels);
@@ -43,29 +55,9 @@ public class IndicatorMatrixView extends JPanel implements View {
     }
 
     public JTable buildCompetitivenessMatrix(Collection<CompanyModel> companyModels) {
-
         JPanel competitivenessMatrix = new JPanel(new BorderLayout());
-
-
-        setBackground(Color.PINK);
-
-   /*     Object[] header = {"№", "Indicators", "CR", " ", "CW", " ", "CM", " ", "CP", " ", "CT", " "};
-        Object[][] standardData = {
-
-                {" ", "Levels of competitiveness", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point", "rel.un", "point"},
-                {"1", "Global leadership", "5", "100", "3.5", "100", "0.5", "100", "1", "100", "0.7", "100"},
-                {"2", "World standard", "3.81", "76.2", "2.8", "80", "0.44", "88", "0.9", "90", "0.62", "88.57"},
-                {"3", "National leadership", "2.94", "58.8", "2.5", "71.43", "0.36", "72", "0.78", "78", "0.46", "65.71"},
-                {"4", "National standard", "2.46", "49.2", "2.4", "68.57", "0.3", "60", "0.66", "66", "0.36", "51.43"},
-                {"5", "Sectoral leadership", "2.18", "43.6", "2.06", "58.86", "0.19", "38", "0.51", "51", "0.27", "38.57"},
-                {"6", "Industry standards", "1.67", "33.4", "1.6", "45.71", "0.07", "14", "0.38", "38", "0.15", "21.43"},
-                {"7", "Threshold level", "1.33", "26.6", "1", "28.57", "0.01", "2", "0.15", "15", "0.09", "12.86"},
-        };*/
-
-
         Object[] header = {"№", "Стандарти", "КР", " ", "КП", " ", "КЄ", " ", "КД", " ", "КЧ", " "};
         Object[][] standardData = {
-
                 {" ", "Ревень КПП", "від.од", "бал", "від.од", "бал", "від.од", "бал", "від.од", "бал", "від.од", "бал"},
                 {"1", "Світове лідерство", "5", "100", "3.5", "100", "0.5", "100", "1", "100", "0.7", "100"},
                 {"2", "Світовий стандарт", "3.81", "76.2", "2.8", "80", "0.44", "88", "0.9", "90", "0.62", "88.57"},
@@ -77,12 +69,8 @@ public class IndicatorMatrixView extends JPanel implements View {
         };
 
         DefaultTableModel defaultTableModel = new DefaultTableModel(standardData, header);
-
-
         for (CompanyModel companyModel : companyModels) {
-
             defaultTableModel.addRow(new Object[]{
-
                     defaultTableModel.getRowCount(),
                     companyModel.getName(),
                     String.format("%.2f", companyModel.getIndRes()),
@@ -95,8 +83,6 @@ public class IndicatorMatrixView extends JPanel implements View {
                     String.format("%.2f", companyModel.getIndRent() * 15 / 0.15),
                     String.format("%.2f", companyModel.getIndTime()),
                     String.format("%.2f", companyModel.getIndTime() * 12.86 / 0.09)
-
-
             });
         }
 
@@ -105,43 +91,27 @@ public class IndicatorMatrixView extends JPanel implements View {
         table.getColumnModel().setColumnMargin(10);
         table.getColumnModel().getColumn(0).setMinWidth(10);
         table.getColumnModel().getColumn(1).setMinWidth(170);
-
-//        table.setSize(1000, 500);
-//        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//        table.setCellSelectionEnabled(true);
-//        table.setDropMode(DropMode.USE_SELECTION);
         table.setFont(new Font("Cambria", Font.PLAIN, 14));
         table.updateUI();
 
 
         JTableHeader tableHeader = table.getTableHeader();
-
         tableHeader.setReorderingAllowed(false);
-
 
         competitivenessMatrix.add(tableHeader, BorderLayout.NORTH);
         competitivenessMatrix.add(table, BorderLayout.SOUTH);
         this.add(competitivenessMatrix, BorderLayout.NORTH);
         return table;
-
-
     }
 
 
     private void buildSummaryMatrix(Collection<CompanyModel> companyModels) {
-
-
         JPanel summaryMatrix = new JPanel(new BorderLayout());
-
-
         this.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createBevelBorder(BevelBorder.LOWERED),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         DefaultTableModel resultTableModel = new DefaultTableModel();
-
-
         resultTableModel.addColumn("Рівень КПП", new Object[]{
                 "Світове лідерство", "Світовий стандарт", "Національне лідерство", "Національний стандарт", "Галузеве лідерство", "Галузевий стандарт", "Пороговий рівень"
         });
@@ -162,12 +132,7 @@ public class IndicatorMatrixView extends JPanel implements View {
         JTable table = new JTable(resultTableModel);
         table.setBackground(Color.PINK);
         table.getColumnModel().setColumnMargin(10);
-//        table.setSize(1000, 500);
-//        table.setAutoResizeMode(JTable.WIDTH);
-//        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getColumnModel().getColumn(0).setMinWidth(170);
-//        table.setCellSelectionEnabled(true);
-//        table.setDropMode(DropMode.USE_SELECTION);
         table.setFont(new Font("Cambria", Font.PLAIN, 14));
         table.updateUI();
 
@@ -223,7 +188,6 @@ public class IndicatorMatrixView extends JPanel implements View {
 
             }
 
-
             levelSearch.append(" Підприємство ").append(companyModel.getName()).append(" відноситься \nдо рівня ").append(" ").append(level).append(" \n");
             levelSearch.append("\n");
             levelS.setText(levelSearch.toString());
@@ -244,9 +208,6 @@ public class IndicatorMatrixView extends JPanel implements View {
                 BorderFactory.createBevelBorder(BevelBorder.RAISED),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         JPanel gistogr = new JPanel(new BorderLayout(10, 10));
-//        gistogr.setBorder(BorderFactory.createCompoundBorder(
-//                BorderFactory.createBevelBorder(BevelBorder.RAISED),
-//                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         gistogr.setBackground((Color.pink));
         this.add(gistogr, BorderLayout.SOUTH);
 
@@ -343,7 +304,42 @@ public class IndicatorMatrixView extends JPanel implements View {
 
     @Override
     public JMenuBar getMenu() {
-        return null;
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu operation = new JMenu("Экспорт");
+        operation.setFont(new Font("Cambria", Font.BOLD, 16));
+        menuBar.add(operation);
+
+        JMenuItem addCompany = new JMenuItem("В Excel (.xlsx)");
+        addCompany.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.WHITE, 4, true),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        addCompany.setFont(new Font("Aria", Font.BOLD, 16));
+        addCompany.addActionListener(event -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Excel (.xlsx)", "xlsx"));
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            int result = fileChooser.showSaveDialog(this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String filename = fileChooser.getSelectedFile().getPath();
+                    if(!filename.endsWith(".xlsx")) {
+                        filename = filename + ".xlsx";
+                    }
+
+                    FileOutputStream out = new FileOutputStream(filename);
+                    ExportUtils.exportToExcel(this.companyModels, out);
+                    JOptionPane.showMessageDialog(this, "Export done at " + filename);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
+                }
+            }
+        });
+
+        operation.add(addCompany);
+
+        return menuBar;
     }
 
 
