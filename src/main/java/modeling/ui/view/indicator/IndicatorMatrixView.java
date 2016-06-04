@@ -118,13 +118,13 @@ public class IndicatorMatrixView extends JPanel implements View {
 
         for (CompanyModel companyModel : companyModels) {
             resultTableModel.addColumn(companyModel.getName(), new Object[]{
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (76.2 + 80 + 88 + 90 + 88.57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (58.8 + 71.43 + 72 + 78 + 65.71)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (26.6 + 28.57 + 2 + 15 + 12.86))
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (100 + 100 + 100 + 100 + 100)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (76.2 + 80 + 88 + 90 + 88.57)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (58.8 + 71.43 + 72 + 78 + 65.71)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (49.2 + 68.57 + 60 + 66 + 51.43)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (43.6 + 58.86 + 38 + 51 + 38.57)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (33.4 + 45.71 + 14 + 38 + 21.43)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (26.6 + 28.57 + 2 + 15 + 12.86))
             });
 
         }
@@ -154,14 +154,13 @@ public class IndicatorMatrixView extends JPanel implements View {
         DefaultTableModel leveles = new DefaultTableModel();
         for (CompanyModel companyModel : companyModels) {
 
-            leveles.addColumn(companyModel.getName(), new Object[]{
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (100 + 100 + 100 + 100 + 100)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (76.2 + 80 + 88 + 90 + 88.57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (58.8 + 71.43 + 72 + 78 + 65.71)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43)),
-                    String.format("%.2f", (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (26.6 + 28.57 + 2 + 15 + 12.86))
+            leveles.addColumn(companyModel.getName(), new Object[]{String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (100 + 100 + 100 + 100 + 100)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (76.2 + 80 + 88 + 90 + 88.57)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (58.8 + 71.43 + 72 + 78 + 65.71)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (49.2 + 68.57 + 60 + 66 + 51.43)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (43.6 + 58.86 + 38 + 51 + 38.57)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (33.4 + 45.71 + 14 + 38 + 21.43)),
+                    String.format("%.2f", ((companyModel.getIndRes() * 26.6 / 1.33) + (companyModel.getIndWork() * 28.57 / 1) + (companyModel.getIndMar() * 2 / 0.01) + (companyModel.getIndRent() * 15 / 0.15) + (companyModel.getIndTime() * 12.86 / 0.09)) / (26.6 + 28.57 + 2 + 15 + 12.86))
             });
 
 
@@ -171,7 +170,7 @@ public class IndicatorMatrixView extends JPanel implements View {
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43) > 1) {
                 level = "Галузевий стандарт";
             }
-            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57) > 1) {
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 58.86 + 38 + 51 + 38.57) > 1) {
                 level = "Галузеве лідерство";
             }
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43) > 1) {
@@ -229,8 +228,8 @@ public class IndicatorMatrixView extends JPanel implements View {
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43) < 1) {
                 y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43);
             }
-            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57) < 1) {
-                y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57);
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 58.86 + 38 + 51 + 38.57) < 1) {
+                y = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 58.86 + 38 + 51 + 38.57);
             }
 
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43) < 1) {
@@ -269,8 +268,8 @@ public class IndicatorMatrixView extends JPanel implements View {
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43) < 1) {
                 best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (33.4 + 45.71 + 14 + 38 + 21.43);
             }
-            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57) < 1) {
-                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 57.86 + 38 + 51 + 38 + 57);
+            if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 58.86 + 38 + 51 + 38.57) < 1) {
+                best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (43.6 + 58.86 + 38 + 51 + 38.57);
             }
             if ((companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43) < 1) {
                 best = (companyModel.getIndRes() * 26.6 / 1.33 + companyModel.getIndWork() * 28.57 / 1 + companyModel.getIndMar() * 2 / 0.01 + companyModel.getIndRent() * 15 / 0.15 + companyModel.getIndTime() * 12.86 / 0.09) / (49.2 + 68.57 + 60 + 66 + 51.43);
@@ -324,7 +323,7 @@ public class IndicatorMatrixView extends JPanel implements View {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String filename = fileChooser.getSelectedFile().getPath();
-                    if(!filename.endsWith(".xlsx")) {
+                    if (!filename.endsWith(".xlsx")) {
                         filename = filename + ".xlsx";
                     }
 

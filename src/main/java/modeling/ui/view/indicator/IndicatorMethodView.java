@@ -167,7 +167,7 @@ public class IndicatorMethodView extends JPanel implements View {
         companyView3.setGrossIncomeGeneral("30013409");
         companyView3.setPeriodGrossHalf("30");
 
-        companyView4.setName("Маріупольський ММК");
+        companyView4.setName("Маріупольський МК");
         companyView4.setNetWorth("13354628");
         companyView4.setContributionsBudgetSocial("256452");
         companyView4.setAdvancedResources("5445420");
@@ -180,16 +180,16 @@ public class IndicatorMethodView extends JPanel implements View {
         companyView4.setPeriodGrossHalf("46");
 
 
+        companies.add(companyView3);
+        companiesHolder.add(companyView3);
+        updateUI();
+
         companies.add(companyView);
         companiesHolder.add(companyView);
         updateUI();
 
         companies.add(companyView2);
         companiesHolder.add(companyView2);
-        updateUI();
-
-        companies.add(companyView3);
-        companiesHolder.add(companyView3);
         updateUI();
 
         companies.add(companyView4);

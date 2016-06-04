@@ -50,7 +50,7 @@ public class GreetingsView extends JPanel implements View {
 
     private JLabel buildAppName() {
 
-        JLabel appName = new JLabel("COMPETITIVENESS ASSEMENT", SwingConstants.CENTER);
+        JLabel appName = new JLabel("COMPETITIVENESS ASSESSMENT", SwingConstants.CENTER);
         appName.setFont(new Font("Cambria", Font.PLAIN, 22));
         appName.setForeground(Color.BLACK);
         appName.setVerticalTextPosition(SwingConstants.TOP);
